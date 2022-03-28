@@ -2,7 +2,7 @@ using backend.DTO;
 using backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Back_end.Controllers
+namespace backend.Controllers
 {
     [Route("[controller]")]
     public class CategoryController : ControllerBase

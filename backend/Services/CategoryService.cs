@@ -8,7 +8,8 @@ namespace backend.Services
     public class CategoryService : ICategoryService
     {
         private MyDbContext _service;
-        public CategoryService(MyDbContext service){
+        public CategoryService(MyDbContext service)
+        {
             _service = service;
         }
         public async Task AddCategory(CategoryDTO category)
@@ -16,9 +17,11 @@ namespace backend.Services
             await _service.Categories.AddAsync(category.CategoryDTOToEntity());
             await _service.SaveChangesAsync();
         }
-        public async Task UpdateCategory(CategoryDTO category, int id){
+        public async Task UpdateCategory(CategoryDTO category, int id)
+        {
             var categoryToUpdate = await _service.Categories.FindAsync(id);
-            if(categoryToUpdate !=null){
+            if (categoryToUpdate != null)
+            {
                 categoryToUpdate = category.CategoryDTOToEntity();
                 categoryToUpdate.CategoryId = id;
                 _service.Categories.Update(categoryToUpdate);
