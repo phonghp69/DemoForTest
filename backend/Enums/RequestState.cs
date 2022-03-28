@@ -1,4 +1,4 @@
-namespace Back_end.Enum
+namespace backend.Enums
 {
     public enum RequestState
     {

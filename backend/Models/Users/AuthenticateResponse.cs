@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using backend.Entities;
-using backend.Enum;
+using backend.Enums;
 
 namespace backend.Models.Users
 {

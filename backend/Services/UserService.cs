@@ -10,13 +10,13 @@ namespace backend.Services
 {
     public class UserService : IUserService
     {
-        private DataContext _context;
+        private MyDbContext _context;
 
         private readonly IJwtUtils _jwtUtils;
         private readonly AppSetting _appSetting;
         public UserService
         (
-            DataContext context,
+            MyDbContext context,
             IJwtUtils jwtUtils,
             IOptions<AppSetting> appSetting
         )

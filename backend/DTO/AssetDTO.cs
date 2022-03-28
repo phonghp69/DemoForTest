@@ -1,7 +1,7 @@
 
-using Back_end.Enums;
+using backend.Enums;
 
-namespace Back_end.DB.DTO
+namespace backend.DTO
 {
     public class AssetDTO
     {

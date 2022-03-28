@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Back_end.DB.Entities;
-using Back_end.Enums;
+using backend.Entities;
+using backend.Enums;
 
-namespace Back_end.DB
+namespace backend.Data
 {
     public static class SeedingData
     {

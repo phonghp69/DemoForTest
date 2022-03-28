@@ -1,10 +1,9 @@
-using Back_end.DB;
-using Back_end.DB.DTO;
-using Back_end.Interface;
-using Back_end.Utilities;
+using backend.Interfaces;
+using backend.Data;
+using backend.DTO;
 using Microsoft.EntityFrameworkCore;
 
-namespace Back_end.Services
+namespace backend.Services
 {
     public class AssetService : IAssetService
     {

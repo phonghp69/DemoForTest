@@ -1,5 +1,5 @@
-using Back_end.DB.DTO;
-using Back_end.Interface;
+using backend.DTO;
+using backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Back_end.Controllers
