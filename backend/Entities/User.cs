@@ -1,23 +1,34 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-using backend.Enum;
+using System.Linq;
+using System.Threading.Tasks;
+using Back_end.Entities;
+using Back_end.Enums;
 
-namespace backend.Entities
+namespace Back_end.DB.Entities
 {
+    [Table("User")]
     public class User
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key, Column(Order = 0)]
-        public int UserId { get; set; }
-        [Required]
-        public string? UserName { get; set; }
-        [Required]
-        [JsonIgnore]
-        public string? PasswordHash { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public Role Role { get; set; }
-        public DateTime JoinedDate { get; set; }
+        public int UserId{get;set;}
+        [Required, MaxLength(250)]
+        public string? UserName{get;set;}
+
+        [Required, MaxLength(250)]
+        public string? PasswordHash{get;set;}
+
+        [Required, MaxLength(250)]
+        public string? FirstName{get;set;}
+        [Required, MaxLength(250)]
+        public string? LastName{get;set;}
+        public Role Role{get;set;} 
+        public DateTime JoindedDate{get;set;}
+        public ICollection <ReturningRequest> Request{get;set;}
+        public ICollection <ReturningRequest> Processed{get;set;}
+        public ICollection<Assignment>? Assignments{get;set;}
     }
 }
