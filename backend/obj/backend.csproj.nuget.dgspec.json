@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Rookies\\FinalProject\\RookiesTeam5\\backend\\backend.csproj": {}
+    "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj": {}
   },
   "projects": {
-    "D:\\Rookies\\FinalProject\\RookiesTeam5\\backend\\backend.csproj": {
+    "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Rookies\\FinalProject\\RookiesTeam5\\backend\\backend.csproj",
+        "projectUniqueName": "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "D:\\Rookies\\FinalProject\\RookiesTeam5\\backend\\backend.csproj",
+        "projectPath": "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\Rookies\\FinalProject\\RookiesTeam5\\backend\\obj\\",
+        "outputPath": "D:\\Rookies\\RookiesTeam5\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,6 +38,24 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
