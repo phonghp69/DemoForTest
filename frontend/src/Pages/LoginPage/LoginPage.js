@@ -6,7 +6,7 @@ import * as Yup from "yup"
 import { useNavigate } from "react-router-dom";
 const styles = makeStyles({
   form: {
-    backgroundColor: "#4f25f7",
+    backgroundColor: "#f44336",
     padding: "50px",
     borderRadius: "10px",
     display: "flex",
@@ -36,7 +36,7 @@ const styles = makeStyles({
     width: "50%",
     padding: "10px",
     borderRadius: "5px",
-    color: "#4f25f7",
+    color: "#f44336",
     backgroundColor: "#fff",
     border: "none",
     cursor: "pointer",
