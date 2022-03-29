@@ -60,6 +60,33 @@ namespace backend.Data
                     },
                 };
                 return result;
+            }
+        }
+            public static IEnumerable<User> SeedingUsers
+        {
+            get
+            {
+                IEnumerable<User> result = new List<User>() {
+                    new User() {
+                        UserId =1,
+                        UserName = "Admin",
+                        PasswordHash="Admin",
+                        FirstName="Dao",
+                        LastName="Quy Vuong",
+                        Role = Role.Admin,
+                        JoindedDate = 2020/02/30,
+                    },
+                    new User() {
+                        UserId =2,
+                        UserName = "Staff",
+                        PasswordHash="Staff",
+                        FirstName="Bui",
+                        LastName="Chi Huong",
+                        Role = Role.User,
+                        JoindedDate = 2020/04/26,
+                    },
+                };
+                return result;
             }  
         }
     }

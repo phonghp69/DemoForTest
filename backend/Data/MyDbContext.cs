@@ -31,7 +31,7 @@ namespace backend.Data
                 .IsRequired();
             modelBuilder.Entity<ReturningRequest>()
             .HasOne(b => b.RequestedBy)
-            .WithMany(u => u.Request)
+            .WithMany(u => u.Requests)
             .HasForeignKey(b => b.RequestedByUserId)
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired(true);
@@ -66,6 +66,7 @@ namespace backend.Data
 
             modelBuilder.Entity<Category>().HasData(SeedingData.SeedingCategories);
             modelBuilder.Entity<Asset>().HasData(SeedingData.SeedingAssets);
+            modelBuilder.Entity<User>().HasData(SeedingData.SeedingUsers);
         }
     }
 }

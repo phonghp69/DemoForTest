@@ -22,7 +22,7 @@ namespace backend.Entities
         public string? LastName { get; set; }
         public Role Role { get; set; }
         public DateTime JoindedDate { get; set; }
-        public ICollection<ReturningRequest> Request { get; set; }
+        public ICollection<ReturningRequest> Requests { get; set; }
         public ICollection<ReturningRequest> Processed { get; set; }
         public ICollection<Assignment>? Assignments { get; set; }
     }
