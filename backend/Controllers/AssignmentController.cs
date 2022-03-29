@@ -4,18 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
 {
+    [ApiController]
     [Route("[controller]")]
-    public class AssignmentController : Controller
+    public class AssignmentController : ControllerBase
     {
         private IAssignmentService _service;
-        private readonly ILogger<AssignmentController> _logger;
-
-        public AssignmentController(ILogger<AssignmentController> logger, IAssignmentService service)
+        public AssignmentController(IAssignmentService service)
         {
-            _logger = logger;
             _service = service;
         }
-        public async Task<List<Assignment>> GetAllCategory()
+
+        [HttpGet("all")]
+        public async Task<List<Assignment>> GetAllAssignment()
         {
             return await _service.GetAllAssignment();
         }

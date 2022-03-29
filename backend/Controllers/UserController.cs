@@ -7,31 +7,29 @@ using backend.Enums;
 
 namespace backend.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
-
-        public UsersController(IUserService userService)
+        private IUserService _service;
+        public UsersController(IUserService service)
         {
-            _userService = userService;
+            _service = service;
         }
 
         [AllowAnonymous]
         [HttpPost("[action]")]
         public IActionResult Authenticate(AuthenticateRequest model)
         {
-            var response = _userService.Authenticate(model);
+            var response = _service.Authenticate(model);
             return Ok(response);
         }
 
-        [Authorize(Role.Admin)]
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _userService.GetAll();
+            var users = _service.GetAll();
             return Ok(users);
         }
 
@@ -43,7 +41,7 @@ namespace backend.Controllers
             if (id != currentUser.UserId && currentUser.Role != Role.Admin)
                 return Unauthorized(new { message = "Unauthorized" });
 
-            var user = _userService.GetById(id);
+            var user = _service.GetById(id);
             return Ok(user);
         }
     }

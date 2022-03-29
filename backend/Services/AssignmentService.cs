@@ -1,21 +1,21 @@
 using backend.Data;
-using backend.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using backend.Entities;
+using backend.Utilities;
+using backend.Interfaces;
 
 namespace backend.Services
 {
     public class AssignmentService : IAssignmentService
     {
         private MyDbContext _context;
-
-        public AssignmentService(MyDbContext context)
+        public AssignmentService (MyDbContext context)
         {
             _context = context;
         }
+
         public async Task<List<Assignment>> GetAllAssignment()
         {
-            return await _context.Assignment.ToListAsync();
+            return _context.Assignment.ToList();
         }
     }
 }

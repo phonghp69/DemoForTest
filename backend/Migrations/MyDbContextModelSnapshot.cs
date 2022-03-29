@@ -106,6 +106,17 @@ namespace backend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Assignment", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            AssignmentId = 1,
+                            AssetId = 2,
+                            AssignedDate = new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(7056),
+                            Note = "this is sample data",
+                            RequestId = 0,
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("backend.Entities.Category", b =>
@@ -177,6 +188,16 @@ namespace backend.Migrations
                     b.HasIndex("RequestedByUserId");
 
                     b.ToTable("ReturningRequest", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            RequestId = 1,
+                            AssignmentId = 1,
+                            ProcessedByUserId = 1,
+                            RequestState = 1,
+                            RequestedByUserId = 2
+                        });
                 });
 
             modelBuilder.Entity("backend.Entities.User", b =>
@@ -222,9 +243,9 @@ namespace backend.Migrations
                         {
                             UserId = 1,
                             FirstName = "Dao",
-                            JoindedDate = new DateTime(2022, 3, 29, 17, 29, 11, 707, DateTimeKind.Local).AddTicks(9056),
+                            JoindedDate = new DateTime(2022, 3, 29, 21, 43, 34, 749, DateTimeKind.Local).AddTicks(1333),
                             LastName = "Quy Vuong",
-                            PasswordHash = "$2a$11$br2gVrH1P0i0XLjDWcpcIeuqbCDdY/iLsGDq4VFM3fE.as76ZLB5u",
+                            PasswordHash = "$2a$11$JY.wPRImtnnjqe/heS1FkOK/dRSDFN3XFGbDMvyg2E3F9RI7N/r/G",
                             Role = 0,
                             UserName = "Admin"
                         },
@@ -232,9 +253,9 @@ namespace backend.Migrations
                         {
                             UserId = 2,
                             FirstName = "Bui",
-                            JoindedDate = new DateTime(2022, 3, 29, 17, 29, 11, 900, DateTimeKind.Local).AddTicks(7619),
+                            JoindedDate = new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(6460),
                             LastName = "Chi Huong",
-                            PasswordHash = "$2a$11$u80ZbCPxLTlj8JfB8jK.K./FAMXs6o0TPlg0pxLFfE3bIVIDPR6Dq",
+                            PasswordHash = "$2a$11$vTBCy3NrgYwE7D8WJbGSa.OzqMdvGMN4gkpbImYINJcG4eSlkxTsS",
                             Role = 1,
                             UserName = "Staff"
                         });

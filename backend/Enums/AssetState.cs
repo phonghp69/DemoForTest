@@ -2,8 +2,8 @@ namespace backend.Enums
 {
     public enum AssetState
     {
-        Avaliable,
-        NotAvliable,
+        Availiable,
+        NotAvailiable,
         WaitingForRecycle,
         Recycled
     }

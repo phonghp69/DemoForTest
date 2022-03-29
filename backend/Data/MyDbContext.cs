@@ -20,16 +20,20 @@ namespace backend.Data
             modelBuilder.Entity<Asset>(e => e.ToTable("Asset"));
             modelBuilder.Entity<Category>(e => e.ToTable("Category"));
 
+            //Assignment
             modelBuilder.Entity<Assignment>()
-                .HasOne(u => u.User)
-                .WithMany(u => u.Assignments)
-                .HasForeignKey(b => b.UserId)
-                .IsRequired();
+            .HasOne(u => u.User)
+            .WithMany(u => u.Assignments)
+            .HasForeignKey(b => b.UserId)
+            .IsRequired();
+
             modelBuilder.Entity<Assignment>()
-                .HasOne<Asset>(a => a.Asset)
-                .WithOne(a => a.Assignment)
-                .HasForeignKey<Asset>(b => b.AssetId)
-                .IsRequired();
+            .HasOne<Asset>(a => a.Asset)
+            .WithOne(a => a.Assignment)
+            .HasForeignKey<Asset>(b => b.AssetId)
+            .IsRequired();
+
+            //Returning Request
             modelBuilder.Entity<ReturningRequest>()
             .HasOne(b => b.RequestedBy)
             .WithMany(u => u.Requests)
@@ -43,31 +47,40 @@ namespace backend.Data
             .HasForeignKey(b => b.ProcessedByUserId)
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired(false);
-            modelBuilder.Entity<ReturningRequest>()
-                .HasOne<Assignment>(r => r.Assignment)
-                .WithOne(a => a.ReturningRequest)
-                .HasForeignKey<Assignment>(b => b.AssignmentId)
-        .OnDelete(DeleteBehavior.Restrict)
-        .IsRequired();
-            modelBuilder.Entity<Asset>()
-                .HasOne<Category>(a => a.Category)
-                .WithOne(c => c.Asset)
-                .HasForeignKey<Category>(a => a.CategoryId)
-                .IsRequired();
-            modelBuilder.Entity<Asset>()
-                .HasOne<Assignment>(a => a.Assignment)
-                .WithOne(a => a.Asset)
-                .HasForeignKey<Assignment>(a => a.AssignmentId)
-                .IsRequired();
-            modelBuilder.Entity<Category>()
-                .HasOne<Asset>(c => c.Asset)
-                .WithOne(a => a.Category)
-                .HasForeignKey<Asset>(a => a.AssetId)
-                .IsRequired();
 
+            modelBuilder.Entity<ReturningRequest>()
+            .HasOne<Assignment>(r => r.Assignment)
+            .WithOne(a => a.ReturningRequest)
+            .HasForeignKey<Assignment>(b => b.AssignmentId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
+
+            //Asset
+            modelBuilder.Entity<Asset>()
+            .HasOne<Category>(a => a.Category)
+            .WithOne(c => c.Asset)
+            .HasForeignKey<Category>(a => a.CategoryId)
+            .IsRequired();
+
+            modelBuilder.Entity<Asset>()
+            .HasOne<Assignment>(a => a.Assignment)
+            .WithOne(a => a.Asset)
+            .HasForeignKey<Assignment>(a => a.AssignmentId)
+            .IsRequired();
+
+            //Category
+            modelBuilder.Entity<Category>()
+            .HasOne<Asset>(c => c.Asset)
+            .WithOne(a => a.Category)
+            .HasForeignKey<Asset>(a => a.AssetId)
+            .IsRequired();
+
+            //Seeding data
             modelBuilder.Entity<Category>().HasData(SeedingData.SeedingCategories);
             modelBuilder.Entity<Asset>().HasData(SeedingData.SeedingAssets);
             modelBuilder.Entity<User>().HasData(SeedingData.SeedingUsers);
+            modelBuilder.Entity<Assignment>().HasData(SeedingData.SeedingAssignments);
+            modelBuilder.Entity<ReturningRequest>().HasData(SeedingData.SeedingReturningRequest);
         }
     }
 }
