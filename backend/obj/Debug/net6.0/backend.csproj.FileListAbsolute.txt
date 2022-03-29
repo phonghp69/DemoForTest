@@ -87,3 +87,4 @@ D:\Rookies\RookiesTeam5\backend\obj\Debug\net6.0\backend.dll
 D:\Rookies\RookiesTeam5\backend\obj\Debug\net6.0\ref\backend.dll
 D:\Rookies\RookiesTeam5\backend\obj\Debug\net6.0\backend.pdb
 D:\Rookies\RookiesTeam5\backend\obj\Debug\net6.0\backend.genruntimeconfig.cache
+D:\Rookies\RookiesTeam5\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

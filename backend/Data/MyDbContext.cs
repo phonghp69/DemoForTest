@@ -5,6 +5,7 @@ namespace backend.Data
 {
     public class MyDbContext : DbContext
     {
+        private readonly IConfiguration configuration;
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Assignment> Assignment { get; set; }

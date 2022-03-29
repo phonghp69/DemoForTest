@@ -27,7 +27,7 @@ namespace backend.Data
                     },
                 };
                 return result;
-            }  
+            }
         }
         public static IEnumerable<Asset> SeedingAssets
         {
@@ -62,7 +62,7 @@ namespace backend.Data
                 return result;
             }
         }
-            public static IEnumerable<User> SeedingUsers
+        public static IEnumerable<User> SeedingUsers
         {
             get
             {
@@ -70,24 +70,24 @@ namespace backend.Data
                     new User() {
                         UserId =1,
                         UserName = "Admin",
-                        PasswordHash="Admin",
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Admin"),
                         FirstName="Dao",
                         LastName="Quy Vuong",
                         Role = Role.Admin,
-                        JoindedDate = 2020/02/30,
+                        JoindedDate = DateTime.Now,
                     },
                     new User() {
                         UserId =2,
                         UserName = "Staff",
-                        PasswordHash="Staff",
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Staff"),
                         FirstName="Bui",
                         LastName="Chi Huong",
                         Role = Role.User,
-                        JoindedDate = 2020/04/26,
+                        JoindedDate = DateTime.Now,
                     },
                 };
                 return result;
-            }  
+            }
         }
     }
 }

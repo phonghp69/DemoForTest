@@ -27,7 +27,7 @@ namespace backend.Services
         }
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.UserName == model.UserName);
+            var user = _context.Users.FirstOrDefault(x => x.UserName == model.UserName);
 
             //validate
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))

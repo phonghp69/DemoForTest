@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using backend.DTO;
 using backend.Entities;
 
@@ -52,7 +48,7 @@ namespace backend.Utilities
                 PasswordHash = entity.PasswordHash,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Role = entity.Role.ToString(),
+                Role = entity.Role,
                 JoindedDate = entity.JoindedDate,
             };
             return result;
@@ -60,14 +56,14 @@ namespace backend.Utilities
 
         public static User AssetDTOToEntity(this UserDTO user)
         {
-            UserDTO result = new UserDTO
+            User result = new User
             {
                 UserId = user.UserId,
                 UserName = user.UserName,
                 PasswordHash = user.PasswordHash,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Role = user.Role.ToString(),
+                Role = user.Role,
                 JoindedDate = user.JoindedDate,
             };
             return result;
