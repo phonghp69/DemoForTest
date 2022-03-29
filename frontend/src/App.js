@@ -1,17 +1,20 @@
 import Topbar from "./Layouts/Topbar/Topbar";
 import Leftbar from "./Layouts/Leftbar/Leftbar";
 import Main from "./Layouts/Main/Main";
-import { Grid } from "@mui/material";
+import { Grid, ThemeProvider  } from "@mui/material";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import AssetPage from "./Pages/AssetPage/AssetPage";
 import AssignmentPage from "./Pages/AssignmentPage/AssignmentPage";
+import { theme } from "./Assets/Styles/theme";
 
 function App() {
   return (
     <div className="App">
+
+<ThemeProvider theme={theme}>
       <Topbar />
 
       <Grid container>
@@ -33,7 +36,7 @@ function App() {
           </Routes>
         </Grid>
       </Grid>
-
+      </ThemeProvider>
     </div>
   );
 }

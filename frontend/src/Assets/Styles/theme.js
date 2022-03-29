@@ -2,14 +2,29 @@ import { createTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
 export const theme = createTheme({
-    palette: {
-      primary: {
-        main: grey[50],
-      },
+  palette: {
+    primary: {
+      main: "#333996",
+      light: '#3c44b126'
     },
-    myButton: {
-      backgroundColor: "red",
-      color: "white",
-      border: "1px solid black",
+    secondary: {
+      main: "#f83245",
+      light: '#f8324526'
     },
+    background: {
+      default: "#f4f5fd"
+    },
+  },
+  overrides:{
+    MuiAppBar:{
+      root:{
+        transform:'translateZ(0)'
+      }
+    }
+  },
+  props:{
+    MuiIconButton:{
+      disableRipple:true
+    }
+  }
   });

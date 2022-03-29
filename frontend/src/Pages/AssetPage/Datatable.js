@@ -88,7 +88,7 @@ const Datatable = () => {
     },
     
     {
-      headerName: "Assigned State",
+      headerName: "State",
       field: "phone",
       width: 250,
     },
