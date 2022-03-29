@@ -1,5 +1,5 @@
 using backend.Entities;
-using backend.Enum;
+using backend.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

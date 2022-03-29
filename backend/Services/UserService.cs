@@ -10,13 +10,13 @@ namespace backend.Services
 {
     public class UserService : IUserService
     {
-        private DataContext _context;
+        private MyDbContext _context;
 
         private readonly IJwtUtils _jwtUtils;
         private readonly AppSetting _appSetting;
         public UserService
         (
-            DataContext context,
+            MyDbContext context,
             IJwtUtils jwtUtils,
             IOptions<AppSetting> appSetting
         )
@@ -27,7 +27,7 @@ namespace backend.Services
         }
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.UserName == model.UserName);
+            var user = _context.Users.FirstOrDefault(x => x.UserName == model.UserName);
 
             //validate
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))

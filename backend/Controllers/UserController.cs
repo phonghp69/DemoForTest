@@ -3,9 +3,9 @@ using backend.Authorization;
 using backend.Entities;
 using backend.Models.Users;
 using backend.Interfaces;
-using backend.Enum;
+using backend.Enums;
 
-namespace WebApi.Controllers
+namespace backend.Controllers
 {
     [Authorize]
     [ApiController]
