@@ -6,14 +6,13 @@ import * as Yup from "yup"
 import { useNavigate } from "react-router-dom";
 const styles = makeStyles({
   form: {
-    backgroundColor: "#f44336",
+   
     padding: "50px",
-    borderRadius: "10px",
-    display: "flex",
-    flexDirection: "column",
+    borderRadius: "20px",
+   
     alignItems: "center",
-    boxShadow: "5px 5px 15px -1px rgba(0,0,0,0.75)",
-    color: "white",
+    boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.75)",
+   
   },
   formContainer: {
     height: "50vh",
@@ -36,7 +35,7 @@ const styles = makeStyles({
     width: "50%",
     padding: "10px",
     borderRadius: "5px",
-    color: "#f44336",
+    color: "#4f25f7",
     backgroundColor: "#fff",
     border: "none",
     cursor: "pointer",
@@ -57,12 +56,12 @@ const styles = makeStyles({
 
 
 const Login = () => {
-    const navigatge = useNavigate();
+    const navigate = useNavigate();
   const formik = useFormik({
     initialValues:{
       user: "",
       password: "",
-      rememberCheck: true,
+    
     },
     validationSchema: Yup.object({
         user: Yup.string()
@@ -73,12 +72,20 @@ const Login = () => {
     }),
     onSubmit: () => { 
       console.log("OK")
-        // loginService().then((response)=>{
-        //   localStorage.setItem("token", response.data.token)
-        //   localStorage.setItem("userID", response.data.userId)
-        //   navigatge('/')
-        //   window.location.reload()
-        // })
+      fetch('https://60dff0ba6b689e001788c858.mockapi.io/token', {
+        method: 'GET',
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (json) {
+          const { token, userId } = json;
+          localStorage.setItem('token', token);
+          localStorage.setItem('userId', userId);
+          navigate('/');
+          window.location.reload();
+        });
+    
     }
 });
 
@@ -87,7 +94,8 @@ const Login = () => {
   const classes = styles();
 
   return (
-    <div className={classes.formContainer}>
+    <div>
+    <div className="card-body">
       <form className={classes.form} onSubmit={formik.handleSubmit}>
         <input
           type="text"
@@ -117,18 +125,9 @@ const Login = () => {
         {formik.touched.password && formik.errors.password ? <p className={classes.validationText}>{formik.errors.password}</p> : null}
         </div>
 
-        <div className={classes.formMarketing}>
-          <input
-            id="okayToRemember"
-            type="checkbox"
-            name="rememberCheck"
-            onChange={formik.handleChange}
-            value={formik.values.rememberCheck}
-          />
-          <label htmlFor="okayToRemember">Remember me</label>
-        </div>
         <button type="submit" className={classes.formSubmit}>Login</button>
       </form>
+    </div>
     </div>
   );
 };
