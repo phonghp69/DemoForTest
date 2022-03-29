@@ -6,10 +6,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./Pages/LoginPage/LoginPage";
-import AssetPage from "./Pages/AssetPage/AssetPage";
+import HomePage from "./Pages/HomePage/HomePage";
 import AssignmentPage from "./Pages/AssignmentPage/AssignmentPage";
 
+import AssetPage from "./Pages/AssetPage/AssetPage";
+import PrivateRoute from './Routes/PrivateRoute'
 function App() {
+  const token = localStorage.getItem('token');
   return (
     <div className="App">
       <Topbar />
@@ -22,20 +25,28 @@ function App() {
           item
           xs={9}
           sx={{
-            // backgroundColor: "#d3d3d3",
+            backgroundColor: "#d3d3d3",
           }}
         >
-          {/* <Main /> */}
+          <Main />
+         
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/asset-list" element={<AssetPage />} />
+         
+         
+          <Route element={<PrivateRoute />}>
+            
+           <Route path="/asset-list" element={<AssetPage />} />
             <Route path="/assignment-list" element={<AssignmentPage />} />
+            <Route path="/" element={<HomePage />} />
+          </Route>
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
         </Grid>
+        
       </Grid>
 
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

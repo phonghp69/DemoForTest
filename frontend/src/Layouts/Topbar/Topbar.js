@@ -1,11 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {useNavigate} from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 function Topbar() {
+  const token = localStorage.getItem('token');
+  const navigate = useNavigate();
+  function onLogoutClicked() {
+    localStorage.setItem('token', '');
+    localStorage.setItem('userId', '');
+    navigate('/');
+    window.location.reload();
+
+  }
     return (
     <div>
         <AppBar position="static" color="error">
@@ -13,7 +22,16 @@ function Topbar() {
           <Typography variant="h6" component="div" >
             Home
           </Typography>
-          <Button color="inherit">User Name</Button>
+          {!token ? (
+          <Button color="inherit" href="/login">Login</Button>
+           
+        ) : (
+          
+          <Button color="inherit" onClick={onLogoutClicked}>
+            Logout
+          </Button>
+        )}
+         
         </Toolbar>
       </AppBar>
     </div>  
