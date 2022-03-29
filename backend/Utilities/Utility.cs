@@ -20,7 +20,7 @@ namespace backend.Utilities
                 Name = category.Name,
                 Perfix = category.Perfix,
             };
-        }        
+        }
         public static AssetDTO AssetEntityToDTO(this Asset entity)
         {
             return new AssetDTO()
@@ -54,7 +54,7 @@ namespace backend.Utilities
             return result;
         }
 
-        public static User AssetDTOToEntity(this UserDTO user)
+        public static User UserDTOToEntity(this UserDTO user)
         {
             User result = new User
             {
@@ -68,6 +68,5 @@ namespace backend.Utilities
             };
             return result;
         }
-
     }
 }

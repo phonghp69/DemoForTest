@@ -89,5 +89,36 @@ namespace backend.Data
                 return result;
             }
         }
+
+        public static IEnumerable<Assignment> SeddingAssignment {
+            get
+            {
+                IEnumerable<Assignment> result = new List<Assignment>
+                {
+                    new Assignment() {
+                        AssignmentId = 1,
+                        UserId = 1,
+                        AssetId = 1,
+                        AssignedDate = DateTime.Now,
+                        Note = "this is sample data"
+                    },
+                    new Assignment() {
+                        AssignmentId = 2,
+                        UserId = 2,
+                        AssetId = 2,
+                        AssignedDate = DateTime.Now,
+                        Note = "this is sample data2"
+                    },
+                        new Assignment() {
+                        AssignmentId = 3,
+                        UserId = 1,
+                        AssetId = 3,
+                        AssignedDate = DateTime.Now,
+                        Note = "this is sample data3"
+                    },
+                };
+                return result;
+            }
+        }
     }
 }

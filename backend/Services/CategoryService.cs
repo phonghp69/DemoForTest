@@ -8,46 +8,46 @@ namespace backend.Services
 {
     public class CategoryService : ICategoryService
     {
-        private MyDbContext _service;
-        public CategoryService(MyDbContext service)
+        private MyDbContext _context;
+        public CategoryService(MyDbContext context)
         {
-            _service = service;
+            _context = context;
         }
         public async Task AddCategory(CategoryDTO category)
         {
-            await _service.Categories.AddAsync(category.CategoryDTOToEntity());
-            await _service.SaveChangesAsync();
+            await _context.Categories.AddAsync(category.CategoryDTOToEntity());
+            await _context.SaveChangesAsync();
         }
         public async Task UpdateCategory(CategoryDTO category, int id)
         {
-            var categoryToUpdate = await _service.Categories.FindAsync(id);
+            var categoryToUpdate = await _context.Categories.FindAsync(id);
             if (categoryToUpdate != null)
             {
                 categoryToUpdate = category.CategoryDTOToEntity();
                 categoryToUpdate.CategoryId = id;
-                _service.Categories.Update(categoryToUpdate);
-                await _service.SaveChangesAsync();
+                _context.Categories.Update(categoryToUpdate);
+                await _context.SaveChangesAsync();
             }
         }
         public async Task DeleteCategory(int id)
         {
-            var categoryToDelete = await _service.Categories.FindAsync(id);
+            var categoryToDelete = await _context.Categories.FindAsync(id);
             if (categoryToDelete != null)
             {
-                _service.Categories.Remove(categoryToDelete);
-                await _service.SaveChangesAsync();
+                _context.Categories.Remove(categoryToDelete);
+                await _context.SaveChangesAsync();
             }
         }
         public async Task<CategoryDTO> GetCategory(int id)
         {
-            var foundCategory = await _service.Categories.FindAsync(id);
+            var foundCategory = await _context.Categories.FindAsync(id);
             if (foundCategory != null)
                 return foundCategory.CategoryEntityToDTO();
             return null;
         }
         public async Task<List<CategoryDTO>> GetAllCategory()
         {
-            return await _service.Categories.Select(category => category.CategoryEntityToDTO()).ToListAsync();
+            return await _context.Categories.Select(category => category.CategoryEntityToDTO()).ToListAsync();
         }
     }
 }
