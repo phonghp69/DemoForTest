@@ -42,7 +42,9 @@ namespace backend.Services
         {
             var foundAsset = await _context.Assets.FindAsync(id);
             if (foundAsset != null)
+            {
                 return foundAsset.AssetEntityToDTO();
+            }
             return null;
         }
         public async Task<List<AssetDTO>> GetAllAsset()

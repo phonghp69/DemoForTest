@@ -42,7 +42,9 @@ namespace backend.Services
         {
             var foundCategory = await _context.Categories.FindAsync(id);
             if (foundCategory != null)
+            {
                 return foundCategory.CategoryEntityToDTO();
+            }
             return null;
         }
         public async Task<List<CategoryDTO>> GetAllCategory()

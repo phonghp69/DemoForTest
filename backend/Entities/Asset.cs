@@ -16,7 +16,7 @@ namespace backend.Entities
         public string AssetStatus { get; set; }
         [Required, DefaultValue(AssetState.WaitingForRecycle)]
         public AssetState AssetState { get; set; }
-        public Assignment Assignment { get; set; }
-        public Category Category { get; set; }
+        public virtual Assignment Assignment { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

@@ -1,10 +1,11 @@
 using backend.Data;
-using backend.Entities;
+using backend.Utilities;
 using backend.Interfaces;
 using backend.Helpers;
 using backend.Models.Users;
 using Microsoft.Extensions.Options;
-
+using Microsoft.EntityFrameworkCore;
+using backend.DTO;
 
 namespace backend.Services
 {
@@ -38,16 +39,19 @@ namespace backend.Services
             return new AuthenticateResponse(user, jwtToken);
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<List<UserDTO>> GetAllUser()
         {
-            return _context.Users;
+            return await _context.Users.Select(x => x.UserEntityToDTO()).ToListAsync();
         }
 
-        public User GetById(int id)
+        public async Task<UserDTO> GetUserById(int id)
         {
-            var user = _context.Users.Find(id);
-            if (user == null) throw new KeyNotFoundException("User not found");
-            return user;
+            var foundUser = await _context.Users.FindAsync(id);
+            if (foundUser != null)
+            {
+                return foundUser.UserEntityToDTO();
+            }
+            return null;
         }
     }
 }

@@ -1,7 +1,8 @@
 using backend.Data;
-using backend.Entities;
-using backend.Utilities;
+using backend.DTO;
 using backend.Interfaces;
+using backend.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
 {
@@ -13,9 +14,19 @@ namespace backend.Services
             _context = context;
         }
 
-        public async Task<List<Assignment>> GetAllAssignment()
+        public async Task<List<AssignmentDTO>> GetAllAssignment()
         {
-            return _context.Assignment.ToList();
+            return await _context.Assignment.Select(x => x.AssignmentEntityToDTO()).ToListAsync();
+        }
+
+        public async Task<List<AssignmentDTO>> GetAssignmentByUserId(int userId)
+        {
+            var foundUser = _context.Users.Include(x => x.Assignments).FirstOrDefault(x => x.UserId == userId);
+            if(foundUser != null)
+            {
+                return foundUser.Assignments.Select(x => x.AssignmentEntityToDTO()).ToList();
+            }
+            return null;
         }
     }
 }

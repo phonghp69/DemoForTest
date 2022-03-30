@@ -4,6 +4,8 @@ using backend.Entities;
 using backend.Models.Users;
 using backend.Interfaces;
 using backend.Enums;
+using backend.Authorization;
+using backend.DTO;
 
 namespace backend.Controllers
 {
@@ -17,32 +19,16 @@ namespace backend.Controllers
             _service = service;
         }
 
-        [AllowAnonymous]
-        [HttpPost("[action]")]
-        public IActionResult Authenticate(AuthenticateRequest model)
+        [HttpGet("all")]
+        public async Task<List<UserDTO>> GetAllUser()
         {
-            var response = _service.Authenticate(model);
-            return Ok(response);
+            return await _service.GetAllUser();
         }
 
-
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpGet("{id}")]
+        public async Task<UserDTO> GetUserById(int id)
         {
-            var users = _service.GetAll();
-            return Ok(users);
-        }
-
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
-        {
-            // only admins can access other user records
-            var currentUser = (User)HttpContext.Items["User"];
-            if (id != currentUser.UserId && currentUser.Role != Role.Admin)
-                return Unauthorized(new { message = "Unauthorized" });
-
-            var user = _service.GetById(id);
-            return Ok(user);
+            return await _service.GetUserById(id);
         }
     }
 }

@@ -1,4 +1,4 @@
-using backend.Entities;
+using backend.DTO;
 using backend.Models.Users;
 
 namespace backend.Interfaces
@@ -6,7 +6,7 @@ namespace backend.Interfaces
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
+        public Task<List<UserDTO>> GetAllUser();
+        public Task<UserDTO> GetUserById(int id);
     }
 }

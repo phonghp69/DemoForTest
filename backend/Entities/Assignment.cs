@@ -12,9 +12,9 @@ namespace backend.Entities
         public int AssetId { get; set; }
         public DateTime AssignedDate { get; set; }
         public string Note { get; set; }
-        public User User { get; set; }
-        public Asset Asset { get; set; }
+        public virtual User User { get; set; }
+        public virtual Asset Asset { get; set; }
         public int RequestId { get; set; }
-        public ReturningRequest ReturningRequest { get; set; }
+        public virtual ReturningRequest ReturningRequest { get; set; }
     }
 }
