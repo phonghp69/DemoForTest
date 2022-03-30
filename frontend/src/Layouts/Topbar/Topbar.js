@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 
 function Topbar() {
   const token = localStorage.getItem('token');
+
+  
   const navigate = useNavigate();
   function onLogoutClicked() {
     localStorage.setItem('token', '');
@@ -26,10 +28,11 @@ function Topbar() {
           <Button color="inherit" href="/login">Login</Button>
            
         ) : (
-          
+         
           <Button color="inherit" onClick={onLogoutClicked}>
             Logout
           </Button>
+         
         )}
          
         </Toolbar>
