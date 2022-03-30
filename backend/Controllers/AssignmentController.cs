@@ -21,7 +21,7 @@ namespace backend.Controllers
             return await _service.GetAllAssignment();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("user")]
         public async Task<List<AssignmentDTO>> GetAssignmentByUserId(int userId)
         {
             return await _service.GetAssignmentByUserId(userId);
