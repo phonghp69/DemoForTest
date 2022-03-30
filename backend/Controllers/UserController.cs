@@ -33,13 +33,15 @@ namespace backend.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             // only admins can access other user records
-            var currentUser = (User)HttpContext.Items["User"];
-            if (id != currentUser.UserId && currentUser.Role != Role.Admin)
-                return Unauthorized(new { message = "Unauthorized" });
+            // only allow admins to access other user records
+            var currentUserId = int.Parse(User.Identity.Name);
+            if (id != currentUserId && !User.IsInRole(Role.Admin.ToString()))
+                return Forbid();
+
 
             var user = _service.GetById(id);
             return Ok(user);

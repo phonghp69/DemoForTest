@@ -7,9 +7,9 @@ namespace backend.Authorization
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly AppSetting _appSettings;
+        private readonly AppSettings _appSettings;
 
-        public JwtMiddleware(RequestDelegate next, IOptions<AppSetting> appSettings)
+        public JwtMiddleware(RequestDelegate next, IOptions<AppSettings> appSettings)
         {
             _next = next;
             _appSettings = appSettings.Value;

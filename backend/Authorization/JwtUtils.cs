@@ -11,9 +11,9 @@ namespace backend.Authorization
 {
     public class JwtUtils : IJwtUtils
     {
-        private readonly AppSetting _appSettings;
+        private readonly AppSettings _appSettings;
 
-        public JwtUtils(IOptions<AppSetting> appSettings)
+        public JwtUtils(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
         }
