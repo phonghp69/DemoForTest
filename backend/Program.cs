@@ -9,11 +9,19 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors(o =>
+            {
+                o.AddPolicy("AllowAllRequests", builder => 
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                    );
+            });
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:MyConnection").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+// builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:EFGetStartedConnectionString"));
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
@@ -39,6 +47,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowAllRequests");
 
 app.UseHttpsRedirection();
 
