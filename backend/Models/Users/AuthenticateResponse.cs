@@ -15,10 +15,7 @@ namespace backend.Models.Users
         public string Token { get; set; }
         public AuthenticateResponse(User user, string token)
         {
-            UserId = user.UserId;
             UserName = user.UserName;
-            FirstName = user.FirstName;
-            LastName = user.LastName;
             Role = user.Role;
             Token = token;
         }

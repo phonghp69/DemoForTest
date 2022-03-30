@@ -7064,11 +7064,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HOANG\\Documents\\GitHub\\RookiesAlternative\\backend\\backend.csproj",
+      "projectUniqueName": "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "C:\\Users\\HOANG\\Documents\\GitHub\\RookiesAlternative\\backend\\backend.csproj",
-      "packagesPath": "C:\\Users\\HOANG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HOANG\\Documents\\GitHub\\RookiesAlternative\\backend\\obj\\",
+      "projectPath": "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "D:\\Rookies\\RookiesTeam5\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
