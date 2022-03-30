@@ -12,7 +12,7 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220329144335_InitialCreate")]
+    [Migration("20220330081809_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,8 +90,14 @@ namespace backend.Migrations
                     b.Property<int>("AssetId")
                         .HasColumnType("int");
 
+                    b.Property<int>("AssignedByUserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("AssignedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("AssignedToUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Note")
                         .IsRequired()
@@ -100,12 +106,11 @@ namespace backend.Migrations
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("AssignmentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AssignedByUserId");
+
+                    b.HasIndex("AssignedToUserId");
 
                     b.ToTable("Assignment", (string)null);
 
@@ -114,10 +119,11 @@ namespace backend.Migrations
                         {
                             AssignmentId = 1,
                             AssetId = 2,
-                            AssignedDate = new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(7056),
+                            AssignedByUserId = 1,
+                            AssignedDate = new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(2325),
+                            AssignedToUserId = 2,
                             Note = "this is sample data",
-                            RequestId = 0,
-                            UserId = 2
+                            RequestId = 0
                         });
                 });
 
@@ -212,16 +218,14 @@ namespace backend.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("JoindedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -245,9 +249,9 @@ namespace backend.Migrations
                         {
                             UserId = 1,
                             FirstName = "Dao",
-                            JoindedDate = new DateTime(2022, 3, 29, 21, 43, 34, 749, DateTimeKind.Local).AddTicks(1333),
+                            JoindedDate = new DateTime(2022, 3, 30, 15, 18, 9, 351, DateTimeKind.Local).AddTicks(4605),
                             LastName = "Quy Vuong",
-                            PasswordHash = "$2a$11$JY.wPRImtnnjqe/heS1FkOK/dRSDFN3XFGbDMvyg2E3F9RI7N/r/G",
+                            PasswordHash = "$2a$11$xcADNau7DOYvBmobsDgrpeaMs2dPzOyncFgridC4T6EKu2mWNplGO",
                             Role = 0,
                             UserName = "Admin"
                         },
@@ -255,9 +259,9 @@ namespace backend.Migrations
                         {
                             UserId = 2,
                             FirstName = "Bui",
-                            JoindedDate = new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(6460),
+                            JoindedDate = new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(1822),
                             LastName = "Chi Huong",
-                            PasswordHash = "$2a$11$vTBCy3NrgYwE7D8WJbGSa.OzqMdvGMN4gkpbImYINJcG4eSlkxTsS",
+                            PasswordHash = "$2a$11$Vr.yDlPZ0KiMFDN07YpwhuDjaXrbYUYyw98GjkRrzcoAwwIQcOBLa",
                             Role = 1,
                             UserName = "Staff"
                         });
@@ -276,6 +280,18 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Entities.Assignment", b =>
                 {
+                    b.HasOne("backend.Entities.User", "AssignedBy")
+                        .WithMany("AssignedBy")
+                        .HasForeignKey("AssignedByUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("backend.Entities.User", "AssignedTo")
+                        .WithMany("AssignedTo")
+                        .HasForeignKey("AssignedToUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("backend.Entities.Asset", "Asset")
                         .WithOne("Assignment")
                         .HasForeignKey("backend.Entities.Assignment", "AssignmentId")
@@ -288,17 +304,13 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.User", "User")
-                        .WithMany("Assignments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Asset");
 
-                    b.Navigation("ReturningRequest");
+                    b.Navigation("AssignedBy");
 
-                    b.Navigation("User");
+                    b.Navigation("AssignedTo");
+
+                    b.Navigation("ReturningRequest");
                 });
 
             modelBuilder.Entity("backend.Entities.ReturningRequest", b =>
@@ -338,7 +350,9 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Entities.User", b =>
                 {
-                    b.Navigation("Assignments");
+                    b.Navigation("AssignedBy");
+
+                    b.Navigation("AssignedTo");
 
                     b.Navigation("Processed");
 

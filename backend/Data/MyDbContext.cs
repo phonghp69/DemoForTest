@@ -22,9 +22,17 @@ namespace backend.Data
 
             //Assignment
             modelBuilder.Entity<Assignment>()
-            .HasOne(u => u.User)
-            .WithMany(u => u.Assignments)
-            .HasForeignKey(b => b.UserId)
+            .HasOne(u => u.AssignedBy)
+            .WithMany(u => u.AssignedBy)
+            .HasForeignKey(b => b.AssignedByUserId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
+
+            modelBuilder.Entity<Assignment>()
+            .HasOne(u => u.AssignedTo)
+            .WithMany(u => u.AssignedTo)
+            .HasForeignKey(b => b.AssignedToUserId)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
             modelBuilder.Entity<Assignment>()

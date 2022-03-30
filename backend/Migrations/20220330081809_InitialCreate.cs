@@ -31,8 +31,8 @@ namespace backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     JoindedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -96,7 +96,8 @@ namespace backend.Migrations
                 columns: table => new
                 {
                     AssignmentId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    AssignedToUserId = table.Column<int>(type: "int", nullable: false),
+                    AssignedByUserId = table.Column<int>(type: "int", nullable: false),
                     AssetId = table.Column<int>(type: "int", nullable: false),
                     AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -118,11 +119,17 @@ namespace backend.Migrations
                         principalColumn: "RequestId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Assignment_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Assignment_User_AssignedByUserId",
+                        column: x => x.AssignedByUserId,
                         principalTable: "User",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Assignment_User_AssignedToUserId",
+                        column: x => x.AssignedToUserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -140,8 +147,8 @@ namespace backend.Migrations
                 columns: new[] { "UserId", "FirstName", "JoindedDate", "LastName", "PasswordHash", "Role", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "Dao", new DateTime(2022, 3, 29, 21, 43, 34, 749, DateTimeKind.Local).AddTicks(1333), "Quy Vuong", "$2a$11$JY.wPRImtnnjqe/heS1FkOK/dRSDFN3XFGbDMvyg2E3F9RI7N/r/G", 0, "Admin" },
-                    { 2, "Bui", new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(6460), "Chi Huong", "$2a$11$vTBCy3NrgYwE7D8WJbGSa.OzqMdvGMN4gkpbImYINJcG4eSlkxTsS", 1, "Staff" }
+                    { 1, "Dao", new DateTime(2022, 3, 30, 15, 18, 9, 351, DateTimeKind.Local).AddTicks(4605), "Quy Vuong", "$2a$11$xcADNau7DOYvBmobsDgrpeaMs2dPzOyncFgridC4T6EKu2mWNplGO", 0, "Admin" },
+                    { 2, "Bui", new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(1822), "Chi Huong", "$2a$11$Vr.yDlPZ0KiMFDN07YpwhuDjaXrbYUYyw98GjkRrzcoAwwIQcOBLa", 1, "Staff" }
                 });
 
             migrationBuilder.InsertData(
@@ -161,13 +168,18 @@ namespace backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "Assignment",
-                columns: new[] { "AssignmentId", "AssetId", "AssignedDate", "Note", "RequestId", "UserId" },
-                values: new object[] { 1, 2, new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(7056), "this is sample data", 0, 2 });
+                columns: new[] { "AssignmentId", "AssetId", "AssignedByUserId", "AssignedDate", "AssignedToUserId", "Note", "RequestId" },
+                values: new object[] { 1, 2, 1, new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(2325), 2, "this is sample data", 0 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Assignment_UserId",
+                name: "IX_Assignment_AssignedByUserId",
                 table: "Assignment",
-                column: "UserId");
+                column: "AssignedByUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Assignment_AssignedToUserId",
+                table: "Assignment",
+                column: "AssignedToUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReturningRequest_ProcessedByUserId",

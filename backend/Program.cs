@@ -44,8 +44,8 @@ builder.Services.AddAuthentication(x =>
 });
 
 //Services
-builder.Services.AddScoped<IJwtUtils, JwtUtils>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<IJwtUtils, JwtUtils>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
@@ -58,6 +58,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowAllRequests");
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+// global error handler
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
+// custom jwt auth middleware
+app.UseMiddleware<JwtMiddleware>();
 
 
 app.UseRouting();

@@ -4,9 +4,13 @@ using backend.Entities;
 using backend.Models.Users;
 using backend.Interfaces;
 using backend.Enums;
+using backend.Authorization;
+using backend.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
@@ -25,26 +29,25 @@ namespace backend.Controllers
             return Ok(response);
         }
 
-
-        [HttpGet]
-        public IActionResult GetAll()
+        [Authorize(Roles = "Admin")]
+        [HttpGet("all")]
+        public async Task<List<UserDTO>> GetAllUser()
         {
-            var users = _service.GetAll();
-            return Ok(users);
+            return await _service.GetAllUser();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<UserDTO> GetUserById(int id)
         {
             // only admins can access other user records
             // only allow admins to access other user records
             var currentUserId = int.Parse(User.Identity.Name);
             if (id != currentUserId && !User.IsInRole(Role.Admin.ToString()))
-                return Forbid();
+                return null;
 
-
-            var user = _service.GetById(id);
-            return Ok(user);
+            return await _service.GetUserById(id);
+          
         }
     }
 }

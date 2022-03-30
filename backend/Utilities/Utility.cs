@@ -28,6 +28,7 @@ namespace backend.Utilities
             return new AssetDTO()
             {
                 AssetId = entity.AssetId,
+                CategoryId = entity.CategoryId,
                 Name = entity.Name,
                 AssetStatus = entity.AssetStatus,
                 AssetState = entity.AssetState,
@@ -38,39 +39,11 @@ namespace backend.Utilities
             return new Asset()
             {
                 AssetId = asset.AssetId,
+                CategoryId = asset.CategoryId,
                 Name = asset.Name,
                 AssetStatus = asset.AssetStatus,
                 AssetState = asset.AssetState,
             };
-        }
-        public static UserDTO UserEntityToDTO(this User entity)
-        {
-            UserDTO result = new UserDTO
-            {
-                UserId = entity.UserId,
-                UserName = entity.UserName,
-                PasswordHash = entity.PasswordHash,
-                FirstName = entity.FirstName,
-                LastName = entity.LastName,
-                Role = entity.Role,
-                JoindedDate = entity.JoindedDate,
-            };
-            return result;
-        }
-
-        public static User UserDTOToEntity(this UserDTO user)
-        {
-            User result = new User
-            {
-                UserId = user.UserId,
-                UserName = user.UserName,
-                PasswordHash = user.PasswordHash,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Role = user.Role,
-                JoindedDate = user.JoindedDate,
-            };
-            return result;
         }
 
         public static AssignmentDTO AssignmentEntityToDTO(this Assignment entity)
@@ -78,7 +51,8 @@ namespace backend.Utilities
             AssignmentDTO result = new AssignmentDTO
             {
                 AssignmentId = entity.AssignmentId,
-                UserId = entity.UserId,
+                AssignedToUserId = entity.AssignedToUserId,
+                AssignedByUserID = entity.AssignedByUserId,
                 AssetId = entity.AssetId,
                 AssignedDate = entity.AssignedDate,
                 Note = entity.Note,
@@ -92,11 +66,42 @@ namespace backend.Utilities
             Assignment result = new Assignment
             {
                 AssignmentId = assignment.AssignmentId,
-                UserId = assignment.UserId,
+                AssignedToUserId = assignment.AssignedToUserId,
+                AssignedByUserId = assignment.AssignedByUserID,
                 AssetId = assignment.AssetId,
                 AssignedDate = assignment.AssignedDate,
                 Note = assignment.Note,
                 RequestId = assignment.RequestId
+            };
+            return result;
+        }
+
+        public static UserDTO UserEntityToDTO(this User entity)
+        {
+            UserDTO result = new UserDTO
+            {
+                UserId = entity.UserId,
+                UserName = entity.UserName,
+                PasswordHash = entity.PasswordHash,
+                Role = entity.Role,
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                JoindedDate = entity.JoindedDate
+            };
+            return result;
+        }
+
+        public static User UserDTOToEntity(this UserDTO user)
+        {
+            User result = new User
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                PasswordHash = user.PasswordHash,
+                Role = user.Role,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                JoindedDate = user.JoindedDate
             };
             return result;
         }

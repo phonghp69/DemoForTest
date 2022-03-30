@@ -1,14 +1,15 @@
 using backend.Data;
-using backend.Entities;
-using backend.Interfaces;
+using backend.DTO;
 using backend.Helpers;
+using backend.Interfaces;
 using backend.Models.Users;
+using backend.Utilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using WebApi.Helpers;
+using System.Text;
 
 namespace backend.Services
 {
@@ -57,16 +58,19 @@ namespace backend.Services
             return new AuthenticateResponse(user, tokenHandler.WriteToken(token));
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<List<UserDTO>> GetAllUser()
         {
-            return _context.Users;
+            return await _context.Users.Select(x => x.UserEntityToDTO()).ToListAsync();
         }
 
-        public User GetById(int id)
+        public async Task<UserDTO> GetUserById(int id)
         {
-            var user = _context.Users.Find(id);
-            if (user == null) throw new KeyNotFoundException("User not found");
-            return user;
+            var foundUser = await _context.Users.FindAsync(id);
+            if (foundUser != null)
+            {
+                return foundUser.UserEntityToDTO();
+            }
+            return null;
         }
     }
 }
