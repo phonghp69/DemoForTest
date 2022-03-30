@@ -20,10 +20,9 @@ builder.Services.AddCors(o =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:MyConnection").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:MyConnection"));
 // builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:EFGetStartedConnectionString"));
 builder.Services.AddSwaggerGen();
-builder.Services.AddCors();
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
     // serialize enums as strings in api responses (e.g. Role)
