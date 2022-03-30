@@ -96,7 +96,8 @@ namespace backend.Data
                 IEnumerable<Assignment> result = new List<Assignment>() {
                     new Assignment() {
                         AssignmentId = 1,
-                        UserId = 2,
+                        AssignedToUserId = 2,
+                        AssignedByUserId = 1,
                         AssetId = 2,
                         AssignedDate = DateTime.Now,
                         Note = "this is sample data",

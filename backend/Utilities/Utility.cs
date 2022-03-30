@@ -51,7 +51,8 @@ namespace backend.Utilities
             AssignmentDTO result = new AssignmentDTO
             {
                 AssignmentId = entity.AssignmentId,
-                UserId = entity.UserId,
+                AssignedToUserId = entity.AssignedToUserId,
+                AssignedByUserID = entity.AssignedByUserId,
                 AssetId = entity.AssetId,
                 AssignedDate = entity.AssignedDate,
                 Note = entity.Note,
@@ -65,7 +66,8 @@ namespace backend.Utilities
             Assignment result = new Assignment
             {
                 AssignmentId = assignment.AssignmentId,
-                UserId = assignment.UserId,
+                AssignedToUserId = assignment.AssignedToUserId,
+                AssignedByUserId = assignment.AssignedByUserID,
                 AssetId = assignment.AssetId,
                 AssignedDate = assignment.AssignedDate,
                 Note = assignment.Note,

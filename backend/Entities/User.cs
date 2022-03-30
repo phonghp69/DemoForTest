@@ -26,6 +26,7 @@ namespace backend.Entities
         public DateTime JoindedDate { get; set; }
         public virtual ICollection<ReturningRequest> Requests { get; set; }
         public virtual ICollection<ReturningRequest> Processed { get; set; }
-        public virtual ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<Assignment> AssignedBy { get; set; }
+        public virtual ICollection<Assignment> AssignedTo { get; set; }
     }
 }

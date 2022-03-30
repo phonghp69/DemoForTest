@@ -21,10 +21,10 @@ namespace backend.Services
 
         public async Task<List<AssignmentDTO>> GetAssignmentByUserId(int userId)
         {
-            var foundUser = _context.Users.Include(x => x.Assignments).FirstOrDefault(x => x.UserId == userId);
+            var foundUser = _context.Users.Include(x => x.AssignedTo).FirstOrDefault(x => x.UserId == userId);
             if(foundUser != null)
             {
-                return foundUser.Assignments.Select(x => x.AssignmentEntityToDTO()).ToList();
+                return foundUser.AssignedTo.Select(x => x.AssignmentEntityToDTO()).ToList();
             }
             return null;
         }
