@@ -55,29 +55,29 @@ const Datatable = () => {
   const loadData = async () => {
     setLoading(true);
     const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
+      "https://localhost:7116/Assignment/all"
     );
     setGridData(response.data);
     setLoading(false);
   };
 
   const modifiedData = gridData.filter(item => {
-    return item.name.includes(searchText)  
+    return item.note.includes(searchText)  
   }).map(({ ...item }) => ({
     ...item,
-    key: item.id,
+    key: item.assignmentId,
   }));
 
   const handleDelete = (value) => {
     const dataSource = [...modifiedData];
-    const filteredData = dataSource.filter((item) => item.id !== value.id);
+    const filteredData = dataSource.filter((item) => item.assignmentId !== value.id);
     setGridData(filteredData);
   };
 
   const toggleChangeStatus = (value) => {
     const dataSource = [...modifiedData];
     const filteredData = dataSource.map((item) => {
-      if (item.id === value.id) {
+      if (item.assignmentId === value.id) {
         return {
           ...item,
           isDisable: !item.isDisable,
@@ -92,38 +92,38 @@ const Datatable = () => {
   const columns = [
     {
       headerName: "ID",
-      field: "id",
+      field: "assignmentId",
       width: 100,
       disableColumnMenu: true,
     },
     {
       headerName: "Asset Code",
-      field: "name",
+      field: "assetId",
       width: 150,
     },
     {
       headerName: "Asset Name",
-      field: "username",
+      field: "assetId",
       width: 250,
     },
     {
       headerName: "Assigned To",
-      field: "email",
+      field: "userId",
       width: 200,
     },
+    // {
+    //   headerName: "Assigned By",
+    //   field: "website",
+    //   width: 200,
+    // },
     {
-      headerName: "Assigned By",
-      field: "website",
-      width: 200,
-    },
-    {
-      headerName: "Assigned By",
-      field: "website",
+      headerName: "Assigned Date",
+      field: "assignedDate",
       width: 200,
     },
     {
       headerName: "Assigned State",
-      field: "phone",
+      field: "note",
       width: 200,
     },
     {
@@ -156,7 +156,7 @@ const Datatable = () => {
                 <ChangeCircleIcon fontSize="small" />
               </Button>
   
-              <Link style={{ textDecoration: "none" }} to={`/posts/${item.id}`}>
+              <Link style={{ textDecoration: "none" }} to={`/posts/${item.assetId}`}>
                 <Button size="small">
                   <InfoIcon fontSize="small" />
                 </Button>
@@ -199,6 +199,7 @@ const Datatable = () => {
           components={{
             Pagination: CustomPagination,
           }}
+          getRowId={row => row.assignmentId}
         />
       </div>
 
@@ -216,7 +217,7 @@ const Datatable = () => {
           onClick={() => {
             setOpenPopup(false);
             setGridData();
-            toggleChangeStatus(selectedItem);
+            toggleChangeStatus(selectedItem);          
             setSelectedItem(null);
           }}
         >
