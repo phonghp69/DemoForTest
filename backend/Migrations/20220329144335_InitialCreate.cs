@@ -140,24 +140,29 @@ namespace backend.Migrations
                 columns: new[] { "UserId", "FirstName", "JoindedDate", "LastName", "PasswordHash", "Role", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "Dao", new DateTime(2022, 3, 29, 17, 29, 11, 707, DateTimeKind.Local).AddTicks(9056), "Quy Vuong", "$2a$11$br2gVrH1P0i0XLjDWcpcIeuqbCDdY/iLsGDq4VFM3fE.as76ZLB5u", 0, "Admin" },
-                    { 2, "Bui", new DateTime(2022, 3, 29, 17, 29, 11, 900, DateTimeKind.Local).AddTicks(7619), "Chi Huong", "$2a$11$u80ZbCPxLTlj8JfB8jK.K./FAMXs6o0TPlg0pxLFfE3bIVIDPR6Dq", 1, "Staff" }
+                    { 1, "Dao", new DateTime(2022, 3, 29, 21, 43, 34, 749, DateTimeKind.Local).AddTicks(1333), "Quy Vuong", "$2a$11$JY.wPRImtnnjqe/heS1FkOK/dRSDFN3XFGbDMvyg2E3F9RI7N/r/G", 0, "Admin" },
+                    { 2, "Bui", new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(6460), "Chi Huong", "$2a$11$vTBCy3NrgYwE7D8WJbGSa.OzqMdvGMN4gkpbImYINJcG4eSlkxTsS", 1, "Staff" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Asset",
                 columns: new[] { "AssetId", "AssetState", "AssetStatus", "AssignmentId", "CategoryId", "Name" },
-                values: new object[] { 1, 2, ".......", 1, 1, "mouse keyboard" });
+                values: new object[,]
+                {
+                    { 1, 2, ".......", 1, 1, "mouse keyboard" },
+                    { 2, 0, ".......", 2, 2, "name tags" },
+                    { 3, 1, ".......", 3, 3, "flowers" }
+                });
 
             migrationBuilder.InsertData(
-                table: "Asset",
-                columns: new[] { "AssetId", "AssetState", "AssetStatus", "AssignmentId", "CategoryId", "Name" },
-                values: new object[] { 2, 0, ".......", 2, 2, "name tags" });
+                table: "ReturningRequest",
+                columns: new[] { "RequestId", "AssignmentId", "ProcessedByUserId", "RequestState", "RequestedByUserId" },
+                values: new object[] { 1, 1, 1, 1, 2 });
 
             migrationBuilder.InsertData(
-                table: "Asset",
-                columns: new[] { "AssetId", "AssetState", "AssetStatus", "AssignmentId", "CategoryId", "Name" },
-                values: new object[] { 3, 1, ".......", 3, 3, "flowers" });
+                table: "Assignment",
+                columns: new[] { "AssignmentId", "AssetId", "AssignedDate", "Note", "RequestId", "UserId" },
+                values: new object[] { 1, 2, new DateTime(2022, 3, 29, 21, 43, 34, 945, DateTimeKind.Local).AddTicks(7056), "this is sample data", 0, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignment_UserId",

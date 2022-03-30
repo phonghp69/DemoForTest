@@ -1,9 +1,10 @@
-using backend.Entities;
+using backend.DTO;
 
 namespace backend.Interfaces
 {
     public interface IAssignmentService
     {
-        public Task<List<Assignment>> GetAllAssignment();
+        public Task<List<AssignmentDTO>> GetAllAssignment();
+        public Task<List<AssignmentDTO>> GetAssignmentByUserId(int userId);
     }
 }

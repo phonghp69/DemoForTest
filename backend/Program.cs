@@ -23,7 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:MyConnection").UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 // builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:EFGetStartedConnectionString"));
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCors();
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
     // serialize enums as strings in api responses (e.g. Role)
@@ -34,10 +34,11 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.Configure<AppSetting>(builder.Configuration.GetSection("AppSettings"));
 
 //Services
-builder.Services.AddScoped<IJwtUtils, JwtUtils>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddTransient<IJwtUtils, JwtUtils>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 
 var app = builder.Build();
 
@@ -48,6 +49,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("AllowAllRequests");
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+// global error handler
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
+// custom jwt auth middleware
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 

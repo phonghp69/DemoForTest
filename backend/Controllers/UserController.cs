@@ -4,47 +4,31 @@ using backend.Entities;
 using backend.Models.Users;
 using backend.Interfaces;
 using backend.Enums;
+using backend.Authorization;
+using backend.DTO;
 
 namespace backend.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
-
-        public UsersController(IUserService userService)
+        private IUserService _service;
+        public UsersController(IUserService service)
         {
-            _userService = userService;
+            _service = service;
         }
 
-        [AllowAnonymous]
-        [HttpPost("[action]")]
-        public IActionResult Authenticate(AuthenticateRequest model)
+        [HttpGet("all")]
+        public async Task<List<UserDTO>> GetAllUser()
         {
-            var response = _userService.Authenticate(model);
-            return Ok(response);
+            return await _service.GetAllUser();
         }
 
-        [Authorize(Role.Admin)]
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpGet("{id}")]
+        public async Task<UserDTO> GetUserById(int id)
         {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
-
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
-        {
-            // only admins can access other user records
-            var currentUser = (User)HttpContext.Items["User"];
-            if (id != currentUser.UserId && currentUser.Role != Role.Admin)
-                return Unauthorized(new { message = "Unauthorized" });
-
-            var user = _userService.GetById(id);
-            return Ok(user);
+            return await _service.GetUserById(id);
         }
     }
 }
