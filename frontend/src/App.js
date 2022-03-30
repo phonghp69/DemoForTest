@@ -6,7 +6,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import LoginPage from "./Pages/LoginPage/LoginPage";
-import HomePage from "./Pages/HomePage/HomePage";
 import AssignmentPage from "./Pages/AssignmentPage/AssignmentPage";
 import { theme } from "./Assets/Styles/theme";
 
@@ -28,10 +27,10 @@ function App() {
           item
           xs={9}
           sx={{
-            backgroundColor: "#d3d3d3",
+            // backgroundColor: "#d3d3d3",
           }}
         >
-          <Main />
+          {/* <Main /> */}
          
           <Routes>
          
@@ -40,7 +39,7 @@ function App() {
             
            <Route path="/asset-list" element={<AssetPage />} />
             <Route path="/assignment-list" element={<AssignmentPage />} />
-            <Route path="/" element={<HomePage />} />
+            {/* <Route path="/" element={<HomePage />} /> */}
           </Route>
             <Route path="/login" element={<LoginPage />} />
           </Routes>
