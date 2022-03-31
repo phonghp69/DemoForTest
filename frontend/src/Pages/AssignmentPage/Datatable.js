@@ -16,6 +16,7 @@ import Popup from "../../Components/Modal/Popup";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import InfoIcon from "@mui/icons-material/Info";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -35,7 +36,7 @@ const styles = makeStyles({
   table: {
     // boxShadow: "2px 2px 5px -1px rgba(0,0,0,0.75)",
     width: "cover",
-    margin: "25px 25px 0 25px",
+    margin: "25px 50px 0 50px",
   },
 });
 const Datatable = () => {
@@ -44,7 +45,8 @@ const Datatable = () => {
   const [searchText, setSearchText] = useState("");
   let [filteredData] = useState();
   const [openPopup, setOpenPopup] = useState(false);
-  const [disable, setDisable] = useState(false);
+  const [disable] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     loadData();
@@ -53,21 +55,36 @@ const Datatable = () => {
   const loadData = async () => {
     setLoading(true);
     const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
+      "https://localhost:7116/Assignment/all"
     );
     setGridData(response.data);
     setLoading(false);
   };
 
-  const modifiedData = gridData.map(({ ...item }) => ({
+  const modifiedData = gridData.filter(item => {
+    return item.note.includes(searchText)  
+  }).map(({ ...item }) => ({
     ...item,
-    key: item.id,
+    key: item.assignmentId,
   }));
 
   const handleDelete = (value) => {
     const dataSource = [...modifiedData];
-    const filteredData = dataSource.filter((item) => item.id !== value.id);
-    console.log(filteredData);
+    const filteredData = dataSource.filter((item) => item.assignmentId !== value.id);
+    setGridData(filteredData);
+  };
+
+  const toggleChangeStatus = (value) => {
+    const dataSource = [...modifiedData];
+    const filteredData = dataSource.map((item) => {
+      if (item.assignmentId === value.id) {
+        return {
+          ...item,
+          isDisable: !item.isDisable,
+        }
+      }
+      return item;
+    });
     setGridData(filteredData);
   };
 
@@ -75,38 +92,38 @@ const Datatable = () => {
   const columns = [
     {
       headerName: "ID",
-      field: "id",
+      field: "assignmentId",
       width: 100,
       disableColumnMenu: true,
     },
     {
       headerName: "Asset Code",
-      field: "name",
+      field: "assetId",
       width: 150,
     },
     {
       headerName: "Asset Name",
-      field: "username",
+      field: "assetId",
       width: 250,
     },
     {
       headerName: "Assigned To",
-      field: "email",
+      field: "userId",
       width: 200,
     },
+    // {
+    //   headerName: "Assigned By",
+    //   field: "website",
+    //   width: 200,
+    // },
     {
-      headerName: "Assigned By",
-      field: "website",
-      width: 200,
-    },
-    {
-      headerName: "Assigned By",
-      field: "website",
+      headerName: "Assigned Date",
+      field: "assignedDate",
       width: 200,
     },
     {
       headerName: "Assigned State",
-      field: "phone",
+      field: "note",
       width: 200,
     },
     {
@@ -115,75 +132,56 @@ const Datatable = () => {
       width: 250,
       sortable: false,
       disableColumnMenu: true,
-      renderCell: (item) =>
-        modifiedData.length >= 1 ? (
-          <div>
-            <Button
-              style={{ marginRight: "1rem" }}
-              size="small"
-              variant="outlined"
-              color="error"
-              onClick={() => handleDelete(item)}
-            >
-              <DeleteForeverIcon />
-            </Button>
-            
-            <Button
-              disabled={disable}
-              style={{ marginRight: "1rem" }}
-              size="small"
-              variant="outlined"
-              color="success"
-              onClick={() => {
-                setOpenPopup(true);
-              }}
-            >
-              <ChangeCircleIcon />
-            </Button>
-
-            <Link style={{ textDecoration: "none" }} to={`/posts/${item.id}`}>
-              <Button size="small" variant="outlined">
-                <InfoIcon />
+      renderCell: (item) => {
+        return (
+          (
+            <div>
+              <Button
+                size="small"
+                color="error"
+                onClick={() => handleDelete(item)}
+              >
+                <RemoveCircleOutlineIcon fontSize="small" />
               </Button>
-            </Link>
-          </div>
-        ) : null,
+            
+              <Button
+                disabled={item.row.isDisable}
+                size="small"
+                color="secondary"
+                onClick={() => {
+                  setOpenPopup(true);
+                  setSelectedItem(item);
+                }}
+              >
+                <ChangeCircleIcon fontSize="small" />
+              </Button>
+  
+              <Link style={{ textDecoration: "none" }} to={`/posts/${item.assetId}`}>
+                <Button size="small">
+                  <InfoIcon fontSize="small" />
+                </Button>
+              </Link>
+            </div>
+          ) 
+        )
+      }
     },
   ];
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
-    if (e.target.value === "") {
-      loadData();
-    }
-  };
-  const globalSearch = () => {
-    filteredData = modifiedData.filter((value) => {
-      return (
-        value.title.toLowerCase().includes(searchText.toLowerCase()) ||
-        value.body.toLowerCase().includes(searchText.toLowerCase())
-      );
-    });
-    setGridData(filteredData);
   };
   return (
     <div>
       <div>
         <TextField
           id="outlined-basic"
-          label="Search for Title & Body"
+          label="Search"
           variant="outlined"
           onChange={handleSearch}
           value={searchText}
           size="small"
         />
-        <Button
-          style={{ marginLeft: "2.5em", backgroundColor: "red" }}
-          variant="contained"
-          onClick={globalSearch}
-        >
-          Search
-        </Button>
       </div>
 
       <div className={classes.table}>
@@ -193,7 +191,7 @@ const Datatable = () => {
           {...modifiedData}
           columns={columns}
           rows={
-            filteredData && filteredData.length ? filteredData : modifiedData
+             modifiedData
           }
           pageSize={5}
           rowsPerPageOptions={[10]}
@@ -201,6 +199,7 @@ const Datatable = () => {
           components={{
             Pagination: CustomPagination,
           }}
+          getRowId={row => row.assignmentId}
         />
       </div>
 
@@ -217,7 +216,9 @@ const Datatable = () => {
           color="error"
           onClick={() => {
             setOpenPopup(false);
-            setDisable(true);
+            setGridData();
+            toggleChangeStatus(selectedItem);          
+            setSelectedItem(null);
           }}
         >
           Yes

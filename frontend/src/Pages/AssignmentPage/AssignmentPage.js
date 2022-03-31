@@ -5,7 +5,6 @@ function AssignmentPage() {
     <div>
         <h3>Assigment List</h3>
         <Datatable />
-        {/* <Return/> */}
     </div> 
     );
 }
