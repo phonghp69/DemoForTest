@@ -14,7 +14,7 @@ namespace backend.Controllers
         {
             _service = service;
         }
-        [HttpGet("all")]
+        // [HttpGet("all")]
         // public async Task<ActionResult<List<AssetInforDTO>>> GetListAssetInfor()
         // {
         //     return await _service.GetAllAsset();

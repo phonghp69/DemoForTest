@@ -107,7 +107,59 @@ namespace backend.Utilities
             };
             return result;
         }
-
+        public static User UserDTOToEntity(this UserDTO user)
+        {
+            Role enumParseResult;
+            Gender enumParseResult1;
+            DateTime dateTimeParseResult;
+            User result = new User
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                PasswordHash = user.PasswordHash,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                JoindedDate = user.JoindedDate,
+                Location = user.Location,
+                IsFirstLogin = user.IsFirstLogin,
+                StaffCode = user.StaffCode,
+                // DateOfBirth = user.DateOfBirth,
+                Role = Enum.TryParse(user.Role, out enumParseResult)
+                    ? enumParseResult
+                    : Role.User,
+                Gender = Enum.TryParse(user.Gender, out enumParseResult1)
+                    ? enumParseResult1
+                    : Gender.Other,
+                DateOfBirth = DateTime.TryParse(user.DateOfBirth, out dateTimeParseResult)
+                    ? dateTimeParseResult
+                    : DateTime.Now,
+            };
+            return result;
+        }
+        public static ReturningRequestDTO ReturningRequestEntityToDTO(this ReturningRequest entity)
+        {
+            return new ReturningRequestDTO()
+            {
+                RequestedByUserId = entity.RequestedByUserId,
+                ProcessedByUserId = entity.ProcessedByUserId,
+                AssignmentId = entity.AssignmentId,
+                RequestState = entity.RequestState.ToString()
+            };
+        }
+        public static ReturningRequest ReturningRequestDTOToEntity(this ReturningRequestDTO returningRequest)
+        {
+            RequestState enumParseResult;
+            ReturningRequest result = new ReturningRequest
+            {
+                RequestedByUserId = returningRequest.RequestedByUserId,
+                ProcessedByUserId = returningRequest.ProcessedByUserId,
+                AssignmentId = returningRequest.AssignmentId,
+                RequestState = Enum.TryParse(returningRequest.RequestState, out enumParseResult)
+                    ? enumParseResult
+                    : RequestState.WaitingForReturning,
+            };
+            return result;
+        }
         // public static User UserDTOToEntity(this UserDTO user)
         // {
         //     User result = new User

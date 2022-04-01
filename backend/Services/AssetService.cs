@@ -122,6 +122,18 @@ namespace backend.Services
             }
             return new NoContentResult();
         }
+        // public async Task<ActionResult<List<AssetInforDTO>>> GetListAssetInfor(){
+        //     if (_context.Categories !=null && _context.Assets !=null){
+        //         try{
+        //             var categorys = await _context.Categories
+        //                 .Include(c=>c.Assets)
+        //                 .Select(category=>category.AssetInforDTO())
+        //                 .ToListAsync();
+        //             return new OkObjectResult( categorys);
+        //         }
+        //     }
+            
+        // }
 
         public async Task<AssetInforDTO> GetAssetInfor(int id)
         {

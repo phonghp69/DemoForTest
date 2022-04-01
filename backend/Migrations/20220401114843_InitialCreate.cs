@@ -152,8 +152,8 @@ namespace backend.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "FirstName", "Gender", "IsFirstLogin", "JoindedDate", "LastName", "Location", "PasswordHash", "Role", "StaffCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, true, new DateTime(2022, 4, 1, 16, 16, 21, 377, DateTimeKind.Local).AddTicks(2483), "Quy Vuong", "Ha Noi", "$2a$11$XDfsYOshGyhIHZqEBCk.euqiy.vXNmwH62wzrQtbgRQezRWApwlkm", 0, "........", "Admin" },
-                    { 2, new DateTime(1999, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bui", 0, true, new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(250), "Chi Huong", "Bac Giang", "$2a$11$WDzfMEV44HwZmLoWMcN2ieX1IOS2IjAW3YthJRMGlkO7Cj490ePI.", 1, "........", "Staff" }
+                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, true, new DateTime(2022, 4, 1, 18, 48, 42, 992, DateTimeKind.Local).AddTicks(2098), "Quy Vuong", "Ha Noi", "$2a$11$0tonZMiS4.G5uSqWzkDzB.3anl2mEVz3EzHHLuj8dOa/sOJ/xqTrW", 0, "........", "Admin" },
+                    { 2, new DateTime(1999, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bui", 0, true, new DateTime(2022, 4, 1, 18, 48, 43, 168, DateTimeKind.Local).AddTicks(3053), "Chi Huong", "Bac Giang", "$2a$11$P7AFG7EHZ5yRwTQtj3aAA.QGbUUPus/aKbYpQRy/qNKG1yrawkHKW", 1, "........", "Staff" }
                 });
 
             migrationBuilder.InsertData(
@@ -174,7 +174,7 @@ namespace backend.Migrations
             migrationBuilder.InsertData(
                 table: "Assignment",
                 columns: new[] { "AssignmentId", "AssetId", "AssignedByUserId", "AssignedDate", "AssignedToUserId", "Note" },
-                values: new object[] { 1, 2, 1, new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(875), 2, "this is sample data" });
+                values: new object[] { 1, 2, 1, new DateTime(2022, 4, 1, 18, 48, 43, 168, DateTimeKind.Local).AddTicks(3637), 2, "this is sample data" });
 
             migrationBuilder.InsertData(
                 table: "ReturningRequest",

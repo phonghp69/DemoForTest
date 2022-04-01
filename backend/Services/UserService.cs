@@ -4,6 +4,7 @@ using backend.Helpers;
 using backend.Interfaces;
 using backend.Models.Users;
 using backend.Utilities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -30,6 +31,11 @@ namespace backend.Services
             _jwtUtils = jwtUtils;
             _appSettings = appSettings.Value;
         }
+
+        public UserService()
+        {
+        }
+
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
             var user = _context.Users.FirstOrDefault(x => x.UserName == model.UserName);
@@ -71,6 +77,35 @@ namespace backend.Services
                 return foundUser.UserEntityToDTO();
             }
             return null;
+        }
+
+        public async Task<IActionResult> AddUser(UserDTO user)
+        {
+            if (_context.Users != null)
+            {
+                try
+                {
+                    await _context.Users.AddAsync(user.UserDTOToEntity());
+                    await _context.SaveChangesAsync();
+                    return new OkResult();
+                }
+                catch (Exception e)
+                {
+                    return new BadRequestObjectResult(e);
+                }
+            }
+            else
+                return new NoContentResult();
+        }
+
+        public Task<IActionResult> UpdateUser(int id, UserDTO user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IActionResult> DeleteUser(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

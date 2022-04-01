@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
@@ -19,6 +19,23 @@ namespace backend.Controllers
         public UsersController(IUserService service)
         {
             _service = service;
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddUser([FromBody] UserDTO user)
+        {
+            return await _service.AddUser(user);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO user)
+        {
+            return await _service.UpdateUser( id,user);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            return await _service.DeleteUser(id);
         }
 
         [AllowAnonymous]
@@ -29,14 +46,14 @@ namespace backend.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpGet("all")]
         public async Task<List<UserDTO>> GetAllUser()
         {
             return await _service.GetAllUser();
         }
 
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<UserDTO> GetUserById(int id)
         {

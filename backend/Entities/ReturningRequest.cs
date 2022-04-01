@@ -11,7 +11,7 @@ namespace backend.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RequestId { get; set; }
         [Required]
-        public int? RequestedByUserId { get; set; }
+        public int RequestedByUserId { get; set; }
         public virtual User? RequestedBy { get; set; }
         public int ProcessedByUserId { get; set; }
         public virtual User? ProcessedBy { get; set; }

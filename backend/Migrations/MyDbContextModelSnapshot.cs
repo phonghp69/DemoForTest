@@ -118,7 +118,7 @@ namespace backend.Migrations
                             AssignmentId = 1,
                             AssetId = 2,
                             AssignedByUserId = 1,
-                            AssignedDate = new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(875),
+                            AssignedDate = new DateTime(2022, 4, 1, 18, 48, 43, 168, DateTimeKind.Local).AddTicks(3637),
                             AssignedToUserId = 2,
                             Note = "this is sample data"
                         });
@@ -269,10 +269,10 @@ namespace backend.Migrations
                             FirstName = "Dao",
                             Gender = 0,
                             IsFirstLogin = true,
-                            JoindedDate = new DateTime(2022, 4, 1, 16, 16, 21, 377, DateTimeKind.Local).AddTicks(2483),
+                            JoindedDate = new DateTime(2022, 4, 1, 18, 48, 42, 992, DateTimeKind.Local).AddTicks(2098),
                             LastName = "Quy Vuong",
                             Location = "Ha Noi",
-                            PasswordHash = "$2a$11$XDfsYOshGyhIHZqEBCk.euqiy.vXNmwH62wzrQtbgRQezRWApwlkm",
+                            PasswordHash = "$2a$11$0tonZMiS4.G5uSqWzkDzB.3anl2mEVz3EzHHLuj8dOa/sOJ/xqTrW",
                             Role = 0,
                             StaffCode = "........",
                             UserName = "Admin"
@@ -284,10 +284,10 @@ namespace backend.Migrations
                             FirstName = "Bui",
                             Gender = 0,
                             IsFirstLogin = true,
-                            JoindedDate = new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(250),
+                            JoindedDate = new DateTime(2022, 4, 1, 18, 48, 43, 168, DateTimeKind.Local).AddTicks(3053),
                             LastName = "Chi Huong",
                             Location = "Bac Giang",
-                            PasswordHash = "$2a$11$WDzfMEV44HwZmLoWMcN2ieX1IOS2IjAW3YthJRMGlkO7Cj490ePI.",
+                            PasswordHash = "$2a$11$P7AFG7EHZ5yRwTQtj3aAA.QGbUUPus/aKbYpQRy/qNKG1yrawkHKW",
                             Role = 1,
                             StaffCode = "........",
                             UserName = "Staff"

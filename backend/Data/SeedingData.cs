@@ -92,6 +92,20 @@ namespace backend.Data
                         JoindedDate = DateTime.Now,
                         DateOfBirth = new DateTime(1999,3,26)
                     },
+                    new User() {
+                        UserId =3,
+                        UserName = "Huong",
+                        PasswordHash= BCrypt.Net.BCrypt.HashPassword("Huong"),
+                        FirstName="Bui",
+                        LastName="Chi Huong",
+                        Gender = Gender.Other,
+                        Location = "Cao Bang",
+                        IsFirstLogin = true,
+                        StaffCode = "........",
+                        Role = Role.User,
+                        JoindedDate = DateTime.Now,
+                        DateOfBirth = new DateTime(2001,3,26)
+                    },
                 };
                 return result;
             }
