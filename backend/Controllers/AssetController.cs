@@ -1,6 +1,7 @@
 using backend.Interfaces;
 using backend.DTO;
 using Microsoft.AspNetCore.Mvc;
+using backend.Entities;
 
 namespace backend.Controllers
 {
@@ -13,35 +14,45 @@ namespace backend.Controllers
         {
             _service = service;
         }
-
+        [HttpGet("all")]
+        // public async Task<ActionResult<List<AssetInforDTO>>> GetListAssetInfor()
+        // {
+        //     return await _service.GetAllAsset();
+        // }
+        
+        [HttpGet]
+        public async Task<AssetInforDTO> GetAssetInforDTO(int id){
+            return await _service.GetAssetInfor(id);
+        }
         [HttpPost]
-        public async Task AddAsset([FromBody] AssetDTO asset)
+        public async Task<ActionResult> AddAsset([FromBody] AssetDTO asset)
         {
-            await _service.AddAsset(asset);
+            return await _service.AddAsset(asset);
         }
 
         [HttpPut("{id}")]
-        public async Task UpdateAsset(int id, [FromBody] AssetDTO asset)
+        public async Task<ActionResult> UpdateAsset(int id, [FromBody] AssetDTO asset)
         {
-            await _service.UpdateAsset(asset, id);
+            return await _service.UpdateAsset(asset, id);
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteAsset(int id)
+        public async Task<ActionResult> DeleteAsset(int id)
         {
-            await _service.DeleteAsset(id);
+            return await _service.DeleteAsset(id);
         }
 
         [HttpGet("{id}")]
-        public async Task<AssetDTO> GetAsset(int id)
+        public async Task<ActionResult<AssetDTO>> GetAsset(int id)
         {
             return await _service.GetAsset(id);
         }
 
         [HttpGet("all")]
-        public async Task<List<AssetDTO>> GetAllAsset()
+        public async Task<ActionResult<List<AssetDTO>>> GetAllAsset()
         {
             return await _service.GetAllAsset();
         }
+        
     }
 }
