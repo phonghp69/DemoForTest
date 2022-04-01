@@ -14,6 +14,23 @@ namespace backend.Controllers
         {
             _service = service;
         }
+        [HttpPost]
+        public async Task<IActionResult> AddAssignment([FromBody] AssignmentDTO assignment)
+        {
+            return await _service.AddAssignment(assignment);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAssignment(int id, [FromBody] AssignmentDTO assignment)
+        {
+            return await _service.UpdateAssignment(assignment,id);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAssignment(int id)
+        {
+            return await _service.DeleteAssignment(id);
+        }
 
         [HttpGet("all")]
         public async Task<List<AssignmentDTO>> GetAllAssignment()

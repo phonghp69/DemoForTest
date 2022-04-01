@@ -15,7 +15,7 @@ namespace backend.Migrations
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Perfix = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -33,8 +33,13 @@ namespace backend.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsFirstLogin = table.Column<bool>(type: "bit", nullable: false),
+                    StaffCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
-                    JoindedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    JoindedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,22 +50,57 @@ namespace backend.Migrations
                 name: "Asset",
                 columns: table => new
                 {
-                    AssetId = table.Column<int>(type: "int", nullable: false),
+                    AssetId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    AssignmentId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AssetStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AssetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AssetCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AssetState = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Asset", x => x.AssetId);
                     table.ForeignKey(
-                        name: "FK_Asset_Category_AssetId",
-                        column: x => x.AssetId,
+                        name: "FK_Asset_Category_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Category",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Assignment",
+                columns: table => new
+                {
+                    AssignmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AssignedToUserId = table.Column<int>(type: "int", nullable: false),
+                    AssignedByUserId = table.Column<int>(type: "int", nullable: false),
+                    AssetId = table.Column<int>(type: "int", nullable: false),
+                    AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assignment", x => x.AssignmentId);
+                    table.ForeignKey(
+                        name: "FK_Assignment_Asset_AssetId",
+                        column: x => x.AssetId,
+                        principalTable: "Asset",
+                        principalColumn: "AssetId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Assignment_User_AssignedByUserId",
+                        column: x => x.AssignedByUserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Assignment_User_AssignedToUserId",
+                        column: x => x.AssignedToUserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,6 +118,12 @@ namespace backend.Migrations
                 {
                     table.PrimaryKey("PK_ReturningRequest", x => x.RequestId);
                     table.ForeignKey(
+                        name: "FK_ReturningRequest_Assignment_AssignmentId",
+                        column: x => x.AssignmentId,
+                        principalTable: "Assignment",
+                        principalColumn: "AssignmentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_ReturningRequest_User_ProcessedByUserId",
                         column: x => x.ProcessedByUserId,
                         principalTable: "User",
@@ -91,50 +137,9 @@ namespace backend.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Assignment",
-                columns: table => new
-                {
-                    AssignmentId = table.Column<int>(type: "int", nullable: false),
-                    AssignedToUserId = table.Column<int>(type: "int", nullable: false),
-                    AssignedByUserId = table.Column<int>(type: "int", nullable: false),
-                    AssetId = table.Column<int>(type: "int", nullable: false),
-                    AssignedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RequestId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Assignment", x => x.AssignmentId);
-                    table.ForeignKey(
-                        name: "FK_Assignment_Asset_AssignmentId",
-                        column: x => x.AssignmentId,
-                        principalTable: "Asset",
-                        principalColumn: "AssetId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Assignment_ReturningRequest_AssignmentId",
-                        column: x => x.AssignmentId,
-                        principalTable: "ReturningRequest",
-                        principalColumn: "RequestId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Assignment_User_AssignedByUserId",
-                        column: x => x.AssignedByUserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Assignment_User_AssignedToUserId",
-                        column: x => x.AssignedToUserId,
-                        principalTable: "User",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "CategoryId", "Name", "Perfix" },
+                columns: new[] { "CategoryId", "CategoryName", "Perfix" },
                 values: new object[,]
                 {
                     { 1, "Technology", "......" },
@@ -144,32 +149,48 @@ namespace backend.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "UserId", "FirstName", "JoindedDate", "LastName", "PasswordHash", "Role", "UserName" },
+                columns: new[] { "UserId", "DateOfBirth", "FirstName", "Gender", "IsFirstLogin", "JoindedDate", "LastName", "Location", "PasswordHash", "Role", "StaffCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "Dao", new DateTime(2022, 3, 30, 15, 18, 9, 351, DateTimeKind.Local).AddTicks(4605), "Quy Vuong", "$2a$11$xcADNau7DOYvBmobsDgrpeaMs2dPzOyncFgridC4T6EKu2mWNplGO", 0, "Admin" },
-                    { 2, "Bui", new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(1822), "Chi Huong", "$2a$11$Vr.yDlPZ0KiMFDN07YpwhuDjaXrbYUYyw98GjkRrzcoAwwIQcOBLa", 1, "Staff" }
+                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, true, new DateTime(2022, 4, 1, 16, 16, 21, 377, DateTimeKind.Local).AddTicks(2483), "Quy Vuong", "Ha Noi", "$2a$11$XDfsYOshGyhIHZqEBCk.euqiy.vXNmwH62wzrQtbgRQezRWApwlkm", 0, "........", "Admin" },
+                    { 2, new DateTime(1999, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bui", 0, true, new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(250), "Chi Huong", "Bac Giang", "$2a$11$WDzfMEV44HwZmLoWMcN2ieX1IOS2IjAW3YthJRMGlkO7Cj490ePI.", 1, "........", "Staff" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Asset",
-                columns: new[] { "AssetId", "AssetState", "AssetStatus", "AssignmentId", "CategoryId", "Name" },
-                values: new object[,]
-                {
-                    { 1, 2, ".......", 1, 1, "mouse keyboard" },
-                    { 2, 0, ".......", 2, 2, "name tags" },
-                    { 3, 1, ".......", 3, 3, "flowers" }
-                });
+                columns: new[] { "AssetId", "AssetCode", "AssetName", "AssetState", "CategoryId" },
+                values: new object[] { 1, ".........,", "mouse keyboard", 2, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Asset",
+                columns: new[] { "AssetId", "AssetCode", "AssetName", "AssetState", "CategoryId" },
+                values: new object[] { 2, ".........,", "name tags", 0, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Asset",
+                columns: new[] { "AssetId", "AssetCode", "AssetName", "AssetState", "CategoryId" },
+                values: new object[] { 3, ".........,", "flowers", 1, 3 });
+
+            migrationBuilder.InsertData(
+                table: "Assignment",
+                columns: new[] { "AssignmentId", "AssetId", "AssignedByUserId", "AssignedDate", "AssignedToUserId", "Note" },
+                values: new object[] { 1, 2, 1, new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(875), 2, "this is sample data" });
 
             migrationBuilder.InsertData(
                 table: "ReturningRequest",
                 columns: new[] { "RequestId", "AssignmentId", "ProcessedByUserId", "RequestState", "RequestedByUserId" },
                 values: new object[] { 1, 1, 1, 1, 2 });
 
-            migrationBuilder.InsertData(
+            migrationBuilder.CreateIndex(
+                name: "IX_Asset_CategoryId",
+                table: "Asset",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Assignment_AssetId",
                 table: "Assignment",
-                columns: new[] { "AssignmentId", "AssetId", "AssignedByUserId", "AssignedDate", "AssignedToUserId", "Note", "RequestId" },
-                values: new object[] { 1, 2, 1, new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(2325), 2, "this is sample data", 0 });
+                column: "AssetId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignment_AssignedByUserId",
@@ -180,6 +201,12 @@ namespace backend.Migrations
                 name: "IX_Assignment_AssignedToUserId",
                 table: "Assignment",
                 column: "AssignedToUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReturningRequest_AssignmentId",
+                table: "ReturningRequest",
+                column: "AssignmentId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReturningRequest_ProcessedByUserId",
@@ -195,19 +222,19 @@ namespace backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ReturningRequest");
+
+            migrationBuilder.DropTable(
                 name: "Assignment");
 
             migrationBuilder.DropTable(
                 name: "Asset");
 
             migrationBuilder.DropTable(
-                name: "ReturningRequest");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Category");
-
-            migrationBuilder.DropTable(
-                name: "User");
         }
     }
 }

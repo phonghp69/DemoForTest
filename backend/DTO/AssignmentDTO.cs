@@ -13,6 +13,5 @@ namespace backend.DTO
         public int AssetId { get; set; }
         public DateTime AssignedDate { get; set; }
         public string Note { get; set; }
-        public int RequestId { get; set; }
     }
 }

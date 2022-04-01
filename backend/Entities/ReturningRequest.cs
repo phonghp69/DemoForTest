@@ -18,6 +18,6 @@ namespace backend.Entities
         public int AssignmentId { get; set; }
         [Required, DefaultValue(RequestState.WaitingForReturning)]
         public RequestState RequestState { get; set; }
-        public virtual Assignment? Assignment { get; set; }
+        public virtual Assignment Assignment { get; set; }
     }
 }

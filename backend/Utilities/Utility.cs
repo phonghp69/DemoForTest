@@ -1,5 +1,7 @@
+using backend.Data;
 using backend.DTO;
 using backend.Entities;
+using backend.Enums;
 
 namespace backend.Utilities
 {
@@ -10,7 +12,7 @@ namespace backend.Utilities
             return new CategoryDTO()
             {
                 CategoryId = entity.CategoryId,
-                Name = entity.Name,
+                CategoryName = entity.CategoryName,
                 Perfix = entity.Perfix,
             };
         }
@@ -19,44 +21,55 @@ namespace backend.Utilities
             return new Category()
             {
                 CategoryId = category.CategoryId,
-                Name = category.Name,
+                CategoryName = category.CategoryName,
                 Perfix = category.Perfix,
             };
         }
         public static AssetDTO AssetEntityToDTO(this Asset entity)
         {
+            // MyDbContext db = new MyDbContext();
+            //     var query =  (from nameCategory in db.Categories
+			// Where nameCatgory.CategoryID==entity.CategoryId
+			// Select nameCategory).FirstOrDefault();
             return new AssetDTO()
             {
-                AssetId = entity.AssetId,
+                // AssetId = entity.AssetId,
                 CategoryId = entity.CategoryId,
-                Name = entity.Name,
-                AssetStatus = entity.AssetStatus,
-                AssetState = entity.AssetState,
+                // AssignmentId = entity.AssignmentId,
+                // CategoryName = entity.CategoryName,
+                AssetName = entity.AssetName,
+                AssetCode = entity.AssetCode,
+                // AssetStatus = entity.AssetStatus,
+                AssetState = entity.AssetState.ToString(),
             };
         }
         public static Asset AssetDTOToEntity(this AssetDTO asset)
         {
-            return new Asset()
+            AssetState enumParseResult;
+            Asset result = new Asset
             {
-                AssetId = asset.AssetId,
                 CategoryId = asset.CategoryId,
-                Name = asset.Name,
-                AssetStatus = asset.AssetStatus,
-                AssetState = asset.AssetState,
+                // AssignmentId = asset.AssignmentId,
+                AssetName = asset.AssetName,
+                AssetCode = asset.AssetCode,
+                // AssetStatus = asset.AssetStatus,
+                AssetState = Enum.TryParse(asset.AssetState, out enumParseResult)
+                    ? enumParseResult
+                    : AssetState.WaitingForRecycle,
             };
+            return result;
         }
 
         public static AssignmentDTO AssignmentEntityToDTO(this Assignment entity)
         {
             AssignmentDTO result = new AssignmentDTO
             {
-                AssignmentId = entity.AssignmentId,
+                // AssignmentId = entity.AssignmentId,
                 AssignedToUserId = entity.AssignedToUserId,
                 AssignedByUserID = entity.AssignedByUserId,
                 AssetId = entity.AssetId,
                 AssignedDate = entity.AssignedDate,
-                Note = entity.Note,
-                RequestId = entity.RequestId
+                Note = entity.Note
             };
             return result;
         }
@@ -65,13 +78,12 @@ namespace backend.Utilities
         {
             Assignment result = new Assignment
             {
-                AssignmentId = assignment.AssignmentId,
+                // AssignmentId = assignment.AssignmentId,
                 AssignedToUserId = assignment.AssignedToUserId,
                 AssignedByUserId = assignment.AssignedByUserID,
                 AssetId = assignment.AssetId,
                 AssignedDate = assignment.AssignedDate,
-                Note = assignment.Note,
-                RequestId = assignment.RequestId
+                Note = assignment.Note
             };
             return result;
         }
@@ -83,27 +95,32 @@ namespace backend.Utilities
                 UserId = entity.UserId,
                 UserName = entity.UserName,
                 PasswordHash = entity.PasswordHash,
-                Role = entity.Role,
+                Role = entity.Role.ToString(),
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                JoindedDate = entity.JoindedDate
+                JoindedDate = entity.JoindedDate,
+                Gender = entity.Gender.ToString(),
+                Location = entity.Location,
+                IsFirstLogin = entity.IsFirstLogin,
+                DateOfBirth = entity.DateOfBirth.ToString(),
+                StaffCode = entity.StaffCode
             };
             return result;
         }
 
-        public static User UserDTOToEntity(this UserDTO user)
-        {
-            User result = new User
-            {
-                UserId = user.UserId,
-                UserName = user.UserName,
-                PasswordHash = user.PasswordHash,
-                Role = user.Role,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                JoindedDate = user.JoindedDate
-            };
-            return result;
-        }
+        // public static User UserDTOToEntity(this UserDTO user)
+        // {
+        //     User result = new User
+        //     {
+        //         UserId = user.UserId,
+        //         UserName = user.UserName,
+        //         PasswordHash = user.PasswordHash,
+        //         Role = user.Role,
+        //         FirstName = user.FirstName,
+        //         LastName = user.LastName,
+        //         JoindedDate = user.JoindedDate
+        //     };
+        //     return result;
+        // }
     }
 }

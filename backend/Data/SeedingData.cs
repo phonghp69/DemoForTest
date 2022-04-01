@@ -12,17 +12,17 @@ namespace backend.Data
                 IEnumerable<Category> result = new List<Category>() {
                     new Category() {
                         CategoryId = 1,
-                        Name = "Technology",
+                        CategoryName = "Technology",
                         Perfix = "......"
                     },
                     new Category() {
                         CategoryId = 2,
-                        Name = "Personal items",
+                        CategoryName = "Personal items",
                         Perfix = "......"
                     },
                     new Category() {
                         CategoryId = 3,
-                        Name = "Other",
+                        CategoryName = "Other",
                         Perfix = "......"
                     },
                 };
@@ -37,25 +37,22 @@ namespace backend.Data
                     new Asset() {
                         AssetId = 1,
                         CategoryId = 1,
-                        AssignmentId = 1,
-                        Name = "mouse keyboard",
-                        AssetStatus = ".......",
+                        AssetName = "mouse keyboard",
+                        AssetCode = ".........,",
                         AssetState = AssetState.WaitingForRecycle
                     },
                     new Asset() {
                         AssetId = 2,
                         CategoryId = 2,
-                        AssignmentId = 2,
-                        Name = "name tags",
-                        AssetStatus = ".......",
+                        AssetName = "name tags",
+                        AssetCode = ".........,",
                         AssetState = AssetState.Availiable
                     },
                     new Asset() {
                         AssetId =3,
                         CategoryId = 3,
-                        AssignmentId = 3,
-                        Name = "flowers",
-                        AssetStatus = ".......",
+                        AssetName = "flowers",
+                        AssetCode = ".........,",
                         AssetState = AssetState.NotAvailiable
                     },
                 };
@@ -73,8 +70,13 @@ namespace backend.Data
                         PasswordHash= BCrypt.Net.BCrypt.HashPassword("Admin"),
                         FirstName="Dao",
                         LastName="Quy Vuong",
+                        Gender = Gender.Male,
+                        Location = "Ha Noi",
+                        IsFirstLogin = true,
+                        StaffCode = "........",
                         Role = Role.Admin,
                         JoindedDate = DateTime.Now,
+                        DateOfBirth = new DateTime(2000,2,23)
                     },
                     new User() {
                         UserId =2,
@@ -82,8 +84,13 @@ namespace backend.Data
                         PasswordHash= BCrypt.Net.BCrypt.HashPassword("Staff"),
                         FirstName="Bui",
                         LastName="Chi Huong",
+                        Gender = Gender.Male,
+                        Location = "Bac Giang",
+                        IsFirstLogin = true,
+                        StaffCode = "........",
                         Role = Role.User,
                         JoindedDate = DateTime.Now,
+                        DateOfBirth = new DateTime(1999,3,26)
                     },
                 };
                 return result;

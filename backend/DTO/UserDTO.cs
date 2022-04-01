@@ -9,7 +9,13 @@ namespace backend.DTO
         public string? PasswordHash { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public Role Role { get; set; }
+        public string? Role { get; set; }
         public DateTime JoindedDate { get; set; }
+        public string Gender { get; set; }
+        public string Location { get; set; }
+        public bool IsFirstLogin { get; set; }
+        public string? StaffCode { get; set; }
+        public string DateOfBirth{get;set;}
+
     }
 }

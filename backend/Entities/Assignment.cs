@@ -15,8 +15,6 @@ namespace backend.Entities
         public string Note { get; set; }
         public virtual User AssignedTo { get; set; }
         public virtual User AssignedBy { get; set; }
-        public virtual Asset Asset { get; set; }
-        public int RequestId { get; set; }
-        public virtual ReturningRequest ReturningRequest { get; set; }
+        public Asset Asset { get; set; }
     }
 }

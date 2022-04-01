@@ -3,6 +3,8 @@ using backend.Data;
 using backend.DTO;
 using Microsoft.EntityFrameworkCore;
 using backend.Utilities;
+using Microsoft.AspNetCore.Mvc;
+using backend.Enums;
 
 namespace backend.Services
 {
@@ -13,43 +15,151 @@ namespace backend.Services
         {
             _context = context;
         }
-        public async Task AddAsset(AssetDTO asset)
+        public async Task<ActionResult> AddAsset(AssetDTO asset)
         {
-            await _context.Assets.AddAsync(asset.AssetDTOToEntity());
-            await _context.SaveChangesAsync();
-        }
-        public async Task UpdateAsset(AssetDTO asset, int id)
-        {
-            var assetToUpdate = await _context.Assets.FindAsync(id);
-            if (assetToUpdate != null)
+            if (_context.Assets != null)
             {
-                assetToUpdate = asset.AssetDTOToEntity();
-                assetToUpdate.AssetId = id;
-                _context.Assets.Update(assetToUpdate);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.Assets.AddAsync(asset.AssetDTOToEntity());
+                    await _context.SaveChangesAsync();
+                    return new OkResult();
+                }
+                catch (Exception e)
+                {
+                    return new BadRequestObjectResult(e);
+                }
             }
+            else
+                return new NoContentResult();
         }
-        public async Task DeleteAsset(int id)
+        public async Task<ActionResult> UpdateAsset(AssetDTO asset, int id)
         {
-            var assetToDelete = await _context.Assets.FindAsync(id);
-            if (assetToDelete != null)
+            if (_context.Assets != null)
             {
-                _context.Assets.Remove(assetToDelete);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    var foundAsset = await _context.Assets.FindAsync(id);
+                    if (foundAsset != null)
+                    {
+                        foundAsset = asset.AssetDTOToEntity();
+                        _context.Assets.Update(foundAsset);
+                        await _context.SaveChangesAsync();
+                        return new OkResult();
+                    }
+                    else
+                        return new NotFoundResult();
+                }
+                catch (Exception e)
+                {
+                    return new BadRequestObjectResult(e);
+                }
             }
+            else
+                return new NoContentResult();
         }
-        public async Task<AssetDTO> GetAsset(int id)
+        public async Task<ActionResult> DeleteAsset(int id)
         {
+            if (_context.Assets != null)
+            {
+                try
+                {
+                    var foundAsset = await _context.Assets.FindAsync(id);
+                    if (foundAsset != null)
+                    {
+                        _context.Assets.Remove(foundAsset);
+                        await _context.SaveChangesAsync();
+                        return new OkResult();
+                    }
+                    else
+                    {
+                        return new NotFoundResult();
+                    }
+                }
+                catch (Exception e)
+                {
+                    return new BadRequestObjectResult(e);
+                }
+            }
+            else
+                return new NoContentResult();
+        }
+        public async Task<ActionResult<AssetDTO>> GetAsset(int id)
+        {
+            if (_context.Assets != null)
+            {
+                try
+                {
+                    var foundAsset = await _context.Assets.FindAsync(id);
+                    if (foundAsset != null)
+                        return new OkObjectResult(foundAsset.AssetEntityToDTO());
+                    else
+                        return new NotFoundResult();
+                }
+                catch (Exception e)
+                {
+                    return new BadRequestObjectResult(e);
+                }
+            }
+            return new NoContentResult();
+        }
+        public async Task<ActionResult<List<AssetDTO>>> GetAllAsset()
+        {
+            if (_context.Assets != null)
+            {
+                try
+                {
+                    var assets = await _context.Assets
+                        .Include(c => c.Category)
+                        .Select(asset => asset.AssetEntityToDTO())
+                        .ToListAsync();
+                    return new OkObjectResult(assets);
+                }
+                catch (Exception e)
+                {
+                    return new BadRequestObjectResult(e);
+                }
+            }
+            return new NoContentResult();
+        }
+
+        public async Task<AssetInforDTO> GetAssetInfor(int id)
+        {
+            AssetState enumParseResult;
             var foundAsset = await _context.Assets.FindAsync(id);
-            if (foundAsset != null)
+            var foundCategory = await _context.Categories.FindAsync(foundAsset.CategoryId);
+            if (foundCategory != null && foundCategory != null)
             {
-                return foundAsset.AssetEntityToDTO();
+                AssetInforDTO dTO = new AssetInforDTO()
+                {
+                    AssetId = foundAsset.AssetId,
+                    AssetCode = foundAsset.AssetCode,
+                    CategoryName = foundCategory.CategoryName,
+                    AssetName = foundAsset.AssetName,
+                    AssetState = ((AssetState)foundAsset.AssetState).ToString()
+                };
+                return dTO;
             }
             return null;
         }
-        public async Task<List<AssetDTO>> GetAllAsset()
-        {
-            return await _context.Assets.Select(asset => asset.AssetEntityToDTO()).ToListAsync();
-        }
+        // public async Task<ActionResult<List<AssetInforDTO>>> GetListAssetInfor()
+        // {
+        //     if (_context.Assets != null)
+        //     {
+        //         try
+        //         {
+        //             var assets = await _context.Assets
+        //                 .Include(c => c.Category)
+        //                 .Select(asset => asset.AssetEntityToDTO())
+        //                 .ToListAsync();
+        //             return new OkObjectResult(assets);
+        //         }
+        //         catch (Exception e)
+        //         {
+        //             return new BadRequestObjectResult(e);
+        //         }
+        //     }
+        //     return new NoContentResult();
+        // }
     }
 }

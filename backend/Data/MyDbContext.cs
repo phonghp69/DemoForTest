@@ -8,7 +8,7 @@ namespace backend.Data
         private readonly IConfiguration configuration;
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
-        public DbSet<Assignment> Assignment { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
         public DbSet<ReturningRequest> ReturningRequests { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -36,10 +36,9 @@ namespace backend.Data
             .IsRequired();
 
             modelBuilder.Entity<Assignment>()
-            .HasOne<Asset>(a => a.Asset)
-            .WithOne(a => a.Assignment)
-            .HasForeignKey<Asset>(b => b.AssetId)
-            .IsRequired();
+            .HasOne(a => a.Asset)
+            .WithOne()
+            .HasForeignKey<Assignment>(a => a.AssetId);
 
             //Returning Request
             modelBuilder.Entity<ReturningRequest>()
@@ -58,30 +57,14 @@ namespace backend.Data
 
             modelBuilder.Entity<ReturningRequest>()
             .HasOne<Assignment>(r => r.Assignment)
-            .WithOne(a => a.ReturningRequest)
-            .HasForeignKey<Assignment>(b => b.AssignmentId)
-            .OnDelete(DeleteBehavior.Restrict)
-            .IsRequired();
+            .WithOne()
+            .HasForeignKey<ReturningRequest>(r => r.AssignmentId);
 
             //Asset
             modelBuilder.Entity<Asset>()
-            .HasOne<Category>(a => a.Category)
-            .WithOne(c => c.Asset)
-            .HasForeignKey<Category>(a => a.CategoryId)
-            .IsRequired();
-
-            modelBuilder.Entity<Asset>()
-            .HasOne<Assignment>(a => a.Assignment)
-            .WithOne(a => a.Asset)
-            .HasForeignKey<Assignment>(a => a.AssignmentId)
-            .IsRequired();
-
-            //Category
-            modelBuilder.Entity<Category>()
-            .HasOne<Asset>(c => c.Asset)
-            .WithOne(a => a.Category)
-            .HasForeignKey<Asset>(a => a.AssetId)
-            .IsRequired();
+            .HasOne(a => a.Category)
+            .WithMany(c=>c.Assets)
+            .HasForeignKey(a => a.CategoryId);
 
             //Seeding data
             modelBuilder.Entity<Category>().HasData(SeedingData.SeedingCategories);

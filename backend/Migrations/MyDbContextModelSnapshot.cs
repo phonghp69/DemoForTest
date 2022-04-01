@@ -28,24 +28,25 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AssetState")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssetId"), 1L, 1);
 
-                    b.Property<string>("AssetStatus")
+                    b.Property<string>("AssetCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AssignmentId")
+                    b.Property<string>("AssetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AssetState")
                         .HasColumnType("int");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("AssetId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Asset", (string)null);
 
@@ -53,29 +54,26 @@ namespace backend.Migrations
                         new
                         {
                             AssetId = 1,
+                            AssetCode = ".........,",
+                            AssetName = "mouse keyboard",
                             AssetState = 2,
-                            AssetStatus = ".......",
-                            AssignmentId = 1,
-                            CategoryId = 1,
-                            Name = "mouse keyboard"
+                            CategoryId = 1
                         },
                         new
                         {
                             AssetId = 2,
+                            AssetCode = ".........,",
+                            AssetName = "name tags",
                             AssetState = 0,
-                            AssetStatus = ".......",
-                            AssignmentId = 2,
-                            CategoryId = 2,
-                            Name = "name tags"
+                            CategoryId = 2
                         },
                         new
                         {
                             AssetId = 3,
+                            AssetCode = ".........,",
+                            AssetName = "flowers",
                             AssetState = 1,
-                            AssetStatus = ".......",
-                            AssignmentId = 3,
-                            CategoryId = 3,
-                            Name = "flowers"
+                            CategoryId = 3
                         });
                 });
 
@@ -84,6 +82,8 @@ namespace backend.Migrations
                     b.Property<int>("AssignmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignmentId"), 1L, 1);
 
                     b.Property<int>("AssetId")
                         .HasColumnType("int");
@@ -101,10 +101,10 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RequestId")
-                        .HasColumnType("int");
-
                     b.HasKey("AssignmentId");
+
+                    b.HasIndex("AssetId")
+                        .IsUnique();
 
                     b.HasIndex("AssignedByUserId");
 
@@ -118,10 +118,9 @@ namespace backend.Migrations
                             AssignmentId = 1,
                             AssetId = 2,
                             AssignedByUserId = 1,
-                            AssignedDate = new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(2325),
+                            AssignedDate = new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(875),
                             AssignedToUserId = 2,
-                            Note = "this is sample data",
-                            RequestId = 0
+                            Note = "this is sample data"
                         });
                 });
 
@@ -133,7 +132,7 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("CategoryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -149,19 +148,19 @@ namespace backend.Migrations
                         new
                         {
                             CategoryId = 1,
-                            Name = "Technology",
+                            CategoryName = "Technology",
                             Perfix = "......"
                         },
                         new
                         {
                             CategoryId = 2,
-                            Name = "Personal items",
+                            CategoryName = "Personal items",
                             Perfix = "......"
                         },
                         new
                         {
                             CategoryId = 3,
-                            Name = "Other",
+                            CategoryName = "Other",
                             Perfix = "......"
                         });
                 });
@@ -189,6 +188,9 @@ namespace backend.Migrations
 
                     b.HasKey("RequestId");
 
+                    b.HasIndex("AssignmentId")
+                        .IsUnique();
+
                     b.HasIndex("ProcessedByUserId");
 
                     b.HasIndex("RequestedByUserId");
@@ -214,14 +216,27 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsFirstLogin")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("JoindedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -232,6 +247,10 @@ namespace backend.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
+
+                    b.Property<string>("StaffCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -246,21 +265,31 @@ namespace backend.Migrations
                         new
                         {
                             UserId = 1,
+                            DateOfBirth = new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Dao",
-                            JoindedDate = new DateTime(2022, 3, 30, 15, 18, 9, 351, DateTimeKind.Local).AddTicks(4605),
+                            Gender = 0,
+                            IsFirstLogin = true,
+                            JoindedDate = new DateTime(2022, 4, 1, 16, 16, 21, 377, DateTimeKind.Local).AddTicks(2483),
                             LastName = "Quy Vuong",
-                            PasswordHash = "$2a$11$xcADNau7DOYvBmobsDgrpeaMs2dPzOyncFgridC4T6EKu2mWNplGO",
+                            Location = "Ha Noi",
+                            PasswordHash = "$2a$11$XDfsYOshGyhIHZqEBCk.euqiy.vXNmwH62wzrQtbgRQezRWApwlkm",
                             Role = 0,
+                            StaffCode = "........",
                             UserName = "Admin"
                         },
                         new
                         {
                             UserId = 2,
+                            DateOfBirth = new DateTime(1999, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Bui",
-                            JoindedDate = new DateTime(2022, 3, 30, 15, 18, 9, 557, DateTimeKind.Local).AddTicks(1822),
+                            Gender = 0,
+                            IsFirstLogin = true,
+                            JoindedDate = new DateTime(2022, 4, 1, 16, 16, 21, 606, DateTimeKind.Local).AddTicks(250),
                             LastName = "Chi Huong",
-                            PasswordHash = "$2a$11$Vr.yDlPZ0KiMFDN07YpwhuDjaXrbYUYyw98GjkRrzcoAwwIQcOBLa",
+                            Location = "Bac Giang",
+                            PasswordHash = "$2a$11$WDzfMEV44HwZmLoWMcN2ieX1IOS2IjAW3YthJRMGlkO7Cj490ePI.",
                             Role = 1,
+                            StaffCode = "........",
                             UserName = "Staff"
                         });
                 });
@@ -268,8 +297,8 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Entities.Asset", b =>
                 {
                     b.HasOne("backend.Entities.Category", "Category")
-                        .WithOne("Asset")
-                        .HasForeignKey("backend.Entities.Asset", "AssetId")
+                        .WithMany("Assets")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -278,6 +307,12 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Entities.Assignment", b =>
                 {
+                    b.HasOne("backend.Entities.Asset", "Asset")
+                        .WithOne()
+                        .HasForeignKey("backend.Entities.Assignment", "AssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("backend.Entities.User", "AssignedBy")
                         .WithMany("AssignedBy")
                         .HasForeignKey("AssignedByUserId")
@@ -290,29 +325,21 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("backend.Entities.Asset", "Asset")
-                        .WithOne("Assignment")
-                        .HasForeignKey("backend.Entities.Assignment", "AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend.Entities.ReturningRequest", "ReturningRequest")
-                        .WithOne("Assignment")
-                        .HasForeignKey("backend.Entities.Assignment", "AssignmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Asset");
 
                     b.Navigation("AssignedBy");
 
                     b.Navigation("AssignedTo");
-
-                    b.Navigation("ReturningRequest");
                 });
 
             modelBuilder.Entity("backend.Entities.ReturningRequest", b =>
                 {
+                    b.HasOne("backend.Entities.Assignment", "Assignment")
+                        .WithOne()
+                        .HasForeignKey("backend.Entities.ReturningRequest", "AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("backend.Entities.User", "ProcessedBy")
                         .WithMany("Processed")
                         .HasForeignKey("ProcessedByUserId")
@@ -324,26 +351,16 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Assignment");
+
                     b.Navigation("ProcessedBy");
 
                     b.Navigation("RequestedBy");
                 });
 
-            modelBuilder.Entity("backend.Entities.Asset", b =>
-                {
-                    b.Navigation("Assignment")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("backend.Entities.Category", b =>
                 {
-                    b.Navigation("Asset")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("backend.Entities.ReturningRequest", b =>
-                {
-                    b.Navigation("Assignment");
+                    b.Navigation("Assets");
                 });
 
             modelBuilder.Entity("backend.Entities.User", b =>

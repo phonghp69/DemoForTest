@@ -15,33 +15,33 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task AddCategory([FromBody] CategoryDTO category)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryDTO category)
         {
-            await _service.AddCategory(category);
+            return await _service.AddCategory(category);
         }
 
         [HttpPut("{id}")]
-        public async Task UpdateCategory(int id, [FromBody] CategoryDTO category)
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO category)
         {
-            await _service.UpdateCategory(category, id);
+            return await _service.UpdateCategory( id,category);
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            await _service.DeleteCategory(id);
+            return await _service.DeleteCategory(id);
         }
 
         [HttpGet("{id}")]
-        public async Task<CategoryDTO> GetCategory(int id)
+        public async Task<ActionResult<CategoryDTO>> GetCategory(int id)
         {
             return await _service.GetCategory(id);
         }
         
         [HttpGet("all")]
-        public async Task<List<CategoryDTO>> GetAllCategory()
+        public async Task<ActionResult<List<CategoryDTO>>> GetAllCategories()
         {
-            return await _service.GetAllCategory();
+            return await _service.GetAllCategories();
         }
     }
 }

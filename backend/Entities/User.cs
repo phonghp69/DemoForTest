@@ -22,8 +22,18 @@ namespace backend.Entities
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        [Required]
+        public Gender Gender { get; set; }
+        [Required]
+        public string Location { get; set; }
+        [Required]
+        public bool IsFirstLogin { get; set; } = true;
+        [Required]
+        public string? StaffCode{get;set;}
+        [Required]
         public Role Role { get; set; }
         public DateTime JoindedDate { get; set; }
+        public DateTime DateOfBirth{get;set;}
         public virtual ICollection<ReturningRequest> Requests { get; set; }
         public virtual ICollection<ReturningRequest> Processed { get; set; }
         public virtual ICollection<Assignment> AssignedBy { get; set; }
