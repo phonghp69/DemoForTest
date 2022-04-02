@@ -6,7 +6,7 @@ namespace backend.DTO
     {
         public int AssetId { get; set; }
         public int CategoryId { get; set; }
-        // public string CategoryName{get;set;}
+        public string CategoryName{get;set;}
         // public int? AssignmentId { get; set; }
         public string AssetName { get; set; }
         public string AssetState { get; set; }

@@ -8,7 +8,7 @@ namespace backend.Interfaces
     {
         public Task<AssetInforDTO> GetAssetInfor(int id);
         // public Task<ActionResult<List<AssetInforDTO>>> GetListAssetInfor();
-        public Task<ActionResult> AddAsset(AssetDTO asset);
+        public Task AddAsset(int categoryId, AssetDTO assetDTO);
         public Task<ActionResult> UpdateAsset(AssetDTO asset, int id);
         public Task<ActionResult> DeleteAsset(int id);
         public Task<ActionResult<AssetDTO>> GetAsset(int id);

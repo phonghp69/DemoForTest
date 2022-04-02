@@ -11,7 +11,7 @@ namespace backend.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssetId { get; set; }
         public int CategoryId { get; set; }
-        // public string CategoryName{get;set;}
+        public string CategoryName{get;set;}
         public string AssetName { get; set; }
         [Required]
         public string? AssetCode{get;set;}

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using backend.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using backend.Enums;
+using backend.Entities;
 
 namespace backend.Services
 {
@@ -15,23 +16,39 @@ namespace backend.Services
         {
             _context = context;
         }
-        public async Task<ActionResult> AddAsset(AssetDTO asset)
+        public async Task AddAsset(int categoryId, AssetDTO assetDTO)
         {
-            if (_context.Assets != null)
+            try
             {
-                try
+                var foundCategory = await _context.Categories.FindAsync(categoryId);
+                if (foundCategory != null)
                 {
-                    await _context.Assets.AddAsync(asset.AssetDTOToEntity());
+                    AssetDTO dto = new AssetDTO()
+                    {
+                        AssetId = assetDTO.AssetId,
+                        CategoryId = categoryId,
+                        CategoryName = foundCategory.CategoryName,
+                        AssetState = AssetState.Availiable.ToString(),
+                        AssetName = assetDTO.AssetName,
+                        AssetCode = assetDTO.AssetCode,
+
+                    };
+                    Asset  newAsset = new Asset(){
+                        AssetId = dto.AssetId,
+                        CategoryId = categoryId,
+                        CategoryName = foundCategory.CategoryName,
+                        AssetState = AssetState.Availiable,
+                        AssetName = dto.AssetName,
+                        AssetCode = dto.AssetCode,
+                    };
+                    await _context.AddAsync(newAsset);
                     await _context.SaveChangesAsync();
-                    return new OkResult();
-                }
-                catch (Exception e)
-                {
-                    return new BadRequestObjectResult(e);
                 }
             }
-            else
-                return new NoContentResult();
+            catch (Exception e)
+            {
+                throw (e);
+            }
         }
         public async Task<ActionResult> UpdateAsset(AssetDTO asset, int id)
         {
@@ -132,7 +149,7 @@ namespace backend.Services
         //             return new OkObjectResult( categorys);
         //         }
         //     }
-            
+
         // }
 
         public async Task<AssetInforDTO> GetAssetInfor(int id)

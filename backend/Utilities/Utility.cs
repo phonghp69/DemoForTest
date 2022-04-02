@@ -27,19 +27,12 @@ namespace backend.Utilities
         }
         public static AssetDTO AssetEntityToDTO(this Asset entity)
         {
-            // MyDbContext db = new MyDbContext();
-            //     var query =  (from nameCategory in db.Categories
-			// Where nameCatgory.CategoryID==entity.CategoryId
-			// Select nameCategory).FirstOrDefault();
             return new AssetDTO()
             {
-                // AssetId = entity.AssetId,
                 CategoryId = entity.CategoryId,
-                // AssignmentId = entity.AssignmentId,
-                // CategoryName = entity.CategoryName,
                 AssetName = entity.AssetName,
+                CategoryName = entity.CategoryName,
                 AssetCode = entity.AssetCode,
-                // AssetStatus = entity.AssetStatus,
                 AssetState = entity.AssetState.ToString(),
             };
         }
