@@ -16,9 +16,9 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task AddAsset([FromBody] AssetDTO asset, int categoryId)
+        public async Task AddAsset([FromBody] AssetDTO asset)
         {
-            await _service.AddAsset(asset, categoryId);
+            await _service.AddAsset(asset);
         }
 
         [HttpPut("{id}")]

@@ -16,11 +16,11 @@ namespace backend.Services
         {
             _context = context;
         }
-        public async Task AddAsset(AssetDTO asset, int categoryId)
+        public async Task AddAsset(AssetDTO asset)
         {
             try
             {
-                var foundCategory = await _context.Categories.FindAsync(categoryId);
+                var foundCategory = await _context.Categories.FindAsync(asset.CategoryId);
                 int code = _context.Assets.ToList().Count + 1;
                 if (foundCategory != null)
                 {
@@ -28,10 +28,10 @@ namespace backend.Services
                     AssetState enumParseResult;
                     Asset newAsset = new Asset
                     {
-                        CategoryId = categoryId,
+                        CategoryId = asset.CategoryId,
                         CategoryName = foundCategory.CategoryName,
                         AssetName = asset.AssetName,
-                        AssetCode = foundCategory.Perfix + "00000" + code.ToString(),
+                        AssetCode = foundCategory.Perfix + "0000" + code.ToString(),
                         Specification = asset.Specification,
                         InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
                             ? dateTimeParseResult
@@ -51,34 +51,51 @@ namespace backend.Services
         }
         public async Task UpdateAsset(AssetDTO asset, int id)
         {
-            var foundAsset = await _context.Assets.FindAsync(id);
-            if (foundAsset != null)
+            try
             {
-                DateTime dateTimeParseResult;
-                AssetState enumParseResult;
+                var foundCategory = await _context.Categories.FindAsync(asset.CategoryId);
+                var foundAsset = await _context.Assets.FindAsync(id);
+                if (foundAsset != null || foundCategory != null)
+                {
+                    DateTime dateTimeParseResult;
+                    AssetState enumParseResult;
+                    //Enter new data for founded asset
+                    foundAsset.AssetName = asset.AssetName;
+                    foundAsset.CategoryId = asset.CategoryId;
+                    foundAsset.CategoryName = foundCategory.CategoryName;
+                    foundAsset.Specification = asset.Specification;
+                    foundAsset.InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
+                                ? dateTimeParseResult
+                                : DateTime.Now;
+                    foundAsset.AssetState = Enum.TryParse(asset.AssetState, out enumParseResult)
+                                ? enumParseResult
+                                : AssetState.Available;
 
-                foundAsset.AssetName = asset.AssetName;
-                foundAsset.CategoryId = asset.CategoryId;
-                foundAsset.CategoryName = asset.CategoryName;
-                foundAsset.Specification = asset.Specification;
-                foundAsset.InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
-                            ? dateTimeParseResult
-                            : DateTime.Now;
-                foundAsset.AssetState = Enum.TryParse(asset.AssetState, out enumParseResult)
-                            ? enumParseResult
-                            : AssetState.Available;
-
-                _context.Assets.Update(foundAsset);
-                await _context.SaveChangesAsync();
+                    _context.Assets.Update(foundAsset);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
         public async Task DeleteAsset(int id)
         {
-            var foundAsset = await _context.Assets.FindAsync(id);
-            if (foundAsset != null)
+            try
             {
-                _context.Assets.Remove(foundAsset);
-                await _context.SaveChangesAsync();
+                var foundAssigment = _context.Assignments.FirstOrDefault(x => x.AssetId == id);
+                var foundAsset = await _context.Assets.FindAsync(id);
+                if (foundAsset != null && foundAssigment == null)
+                {
+                    _context.Assets.Remove(foundAsset);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
             }
         }
         public async Task<ActionResult<AssetDTO>> GetAsset(int id)
