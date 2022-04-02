@@ -7059,19 +7059,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DELL VOSTRO\\.nuget\\packages\\": {}
+    "C:\\Users\\DELL\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\rookies\\RookiesTeam5\\backend\\backend.csproj",
+      "projectUniqueName": "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "E:\\rookies\\RookiesTeam5\\backend\\backend.csproj",
-      "packagesPath": "C:\\Users\\DELL VOSTRO\\.nuget\\packages\\",
-      "outputPath": "E:\\rookies\\RookiesTeam5\\backend\\obj\\",
+      "projectPath": "D:\\Rookies\\RookiesTeam5\\backend\\backend.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "D:\\Rookies\\RookiesTeam5\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\DELL VOSTRO\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -7148,7 +7148,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

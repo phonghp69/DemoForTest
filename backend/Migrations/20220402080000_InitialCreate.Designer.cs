@@ -12,7 +12,7 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220401114843_InitialCreate")]
+    [Migration("20220402080000_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,17 @@ namespace backend.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InstalledDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Specification")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("AssetId");
 
                     b.HasIndex("CategoryId");
@@ -56,26 +67,35 @@ namespace backend.Migrations
                         new
                         {
                             AssetId = 1,
-                            AssetCode = ".........,",
-                            AssetName = "mouse keyboard",
-                            AssetState = 2,
-                            CategoryId = 1
+                            AssetCode = "LA1",
+                            AssetName = "HP Zenbook8",
+                            AssetState = 0,
+                            CategoryId = 1,
+                            CategoryName = "Laptop",
+                            InstalledDate = new DateTime(2022, 4, 2, 14, 59, 59, 459, DateTimeKind.Local).AddTicks(7657),
+                            Specification = "this is sample data"
                         },
                         new
                         {
                             AssetId = 2,
-                            AssetCode = ".........,",
-                            AssetName = "name tags",
+                            AssetCode = "MO1",
+                            AssetName = "Dell UltralSharp",
                             AssetState = 0,
-                            CategoryId = 2
+                            CategoryId = 2,
+                            CategoryName = "Monitor",
+                            InstalledDate = new DateTime(2022, 4, 2, 14, 59, 59, 459, DateTimeKind.Local).AddTicks(7686),
+                            Specification = "this is sample data"
                         },
                         new
                         {
                             AssetId = 3,
-                            AssetCode = ".........,",
-                            AssetName = "flowers",
-                            AssetState = 1,
-                            CategoryId = 3
+                            AssetCode = "PC1",
+                            AssetName = "HP PC",
+                            AssetState = 0,
+                            CategoryId = 3,
+                            CategoryName = "Personal Computer",
+                            InstalledDate = new DateTime(2022, 4, 2, 14, 59, 59, 459, DateTimeKind.Local).AddTicks(7689),
+                            Specification = "this is sample data"
                         });
                 });
 
@@ -120,7 +140,7 @@ namespace backend.Migrations
                             AssignmentId = 1,
                             AssetId = 2,
                             AssignedByUserId = 1,
-                            AssignedDate = new DateTime(2022, 4, 1, 18, 48, 43, 168, DateTimeKind.Local).AddTicks(3637),
+                            AssignedDate = new DateTime(2022, 4, 2, 15, 0, 0, 50, DateTimeKind.Local).AddTicks(4),
                             AssignedToUserId = 2,
                             Note = "this is sample data"
                         });
@@ -150,20 +170,20 @@ namespace backend.Migrations
                         new
                         {
                             CategoryId = 1,
-                            CategoryName = "Technology",
-                            Perfix = "......"
+                            CategoryName = "Laptop",
+                            Perfix = "LA"
                         },
                         new
                         {
                             CategoryId = 2,
-                            CategoryName = "Personal items",
-                            Perfix = "......"
+                            CategoryName = "Monitor",
+                            Perfix = "MO"
                         },
                         new
                         {
                             CategoryId = 3,
-                            CategoryName = "Other",
-                            Perfix = "......"
+                            CategoryName = "Personal Computer",
+                            Perfix = "PC"
                         });
                 });
 
@@ -184,8 +204,7 @@ namespace backend.Migrations
                     b.Property<int>("RequestState")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RequestedByUserId")
-                        .IsRequired()
+                    b.Property<int>("RequestedByUserId")
                         .HasColumnType("int");
 
                     b.HasKey("RequestId");
@@ -271,12 +290,12 @@ namespace backend.Migrations
                             FirstName = "Dao",
                             Gender = 0,
                             IsFirstLogin = true,
-                            JoindedDate = new DateTime(2022, 4, 1, 18, 48, 42, 992, DateTimeKind.Local).AddTicks(2098),
+                            JoindedDate = new DateTime(2022, 4, 2, 14, 59, 59, 662, DateTimeKind.Local).AddTicks(3434),
                             LastName = "Quy Vuong",
                             Location = "Ha Noi",
-                            PasswordHash = "$2a$11$0tonZMiS4.G5uSqWzkDzB.3anl2mEVz3EzHHLuj8dOa/sOJ/xqTrW",
+                            PasswordHash = "$2a$11$9VZfHhpXAaWWnEWfYkKhxuZ5IsEP48xL/FG.AhOyFhkYxFx/jdx0K",
                             Role = 0,
-                            StaffCode = "........",
+                            StaffCode = "AD1",
                             UserName = "Admin"
                         },
                         new
@@ -286,13 +305,28 @@ namespace backend.Migrations
                             FirstName = "Bui",
                             Gender = 0,
                             IsFirstLogin = true,
-                            JoindedDate = new DateTime(2022, 4, 1, 18, 48, 43, 168, DateTimeKind.Local).AddTicks(3053),
+                            JoindedDate = new DateTime(2022, 4, 2, 14, 59, 59, 855, DateTimeKind.Local).AddTicks(6545),
                             LastName = "Chi Huong",
                             Location = "Bac Giang",
-                            PasswordHash = "$2a$11$P7AFG7EHZ5yRwTQtj3aAA.QGbUUPus/aKbYpQRy/qNKG1yrawkHKW",
+                            PasswordHash = "$2a$11$uXSGsUWNVQmG/gCFh69hMuSKKCzhTvQQi0uvrOeEk9cWAP0PHRUPC",
+                            Role = 1,
+                            StaffCode = "US2",
+                            UserName = "Staff"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            DateOfBirth = new DateTime(2001, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Bui",
+                            Gender = 2,
+                            IsFirstLogin = true,
+                            JoindedDate = new DateTime(2022, 4, 2, 15, 0, 0, 49, DateTimeKind.Local).AddTicks(9531),
+                            LastName = "Chi Huong",
+                            Location = "Cao Bang",
+                            PasswordHash = "$2a$11$mSHmk7mLFbdwO6KHw0O3U.CtYjETdpQFxXmV8EjygrGprYSb0BDPO",
                             Role = 1,
                             StaffCode = "........",
-                            UserName = "Staff"
+                            UserName = "Huong"
                         });
                 });
 

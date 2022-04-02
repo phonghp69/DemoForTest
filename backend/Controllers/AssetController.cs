@@ -14,32 +14,23 @@ namespace backend.Controllers
         {
             _service = service;
         }
-        // [HttpGet("all")]
-        // public async Task<ActionResult<List<AssetInforDTO>>> GetListAssetInfor()
-        // {
-        //     return await _service.GetAllAsset();
-        // }
-        
-        [HttpGet]
-        public async Task<AssetInforDTO> GetAssetInforDTO(int id){
-            return await _service.GetAssetInfor(id);
-        }
+
         [HttpPost]
-        public async Task AddAsset(int categoryId,[FromBody] AssetDTO assetDTO)
+        public async Task AddAsset([FromBody] AssetDTO asset, int categoryId)
         {
-            await _service.AddAsset(categoryId,assetDTO);
+            await _service.AddAsset(asset, categoryId);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAsset(int id, [FromBody] AssetDTO asset)
+        public async Task UpdateAsset(int id, [FromBody] AssetDTO asset)
         {
-            return await _service.UpdateAsset(asset, id);
+            await _service.UpdateAsset(asset, id);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteAsset(int id)
+        public async Task DeleteAsset(int id)
         {
-            return await _service.DeleteAsset(id);
+            await _service.DeleteAsset(id);
         }
 
         [HttpGet("{id}")]

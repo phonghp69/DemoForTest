@@ -29,26 +29,33 @@ namespace backend.Utilities
         {
             return new AssetDTO()
             {
+                AssetId = entity.AssetId,
                 CategoryId = entity.CategoryId,
-                AssetName = entity.AssetName,
                 CategoryName = entity.CategoryName,
+                AssetName = entity.AssetName,
                 AssetCode = entity.AssetCode,
+                Specification = entity.Specification,
+                InstalledDate = entity.InstalledDate.ToString(),
                 AssetState = entity.AssetState.ToString(),
             };
         }
         public static Asset AssetDTOToEntity(this AssetDTO asset)
         {
+            DateTime dateTimeParseResult;
             AssetState enumParseResult;
             Asset result = new Asset
             {
+                AssetId = asset.AssetId,
                 CategoryId = asset.CategoryId,
-                // AssignmentId = asset.AssignmentId,
                 AssetName = asset.AssetName,
                 AssetCode = asset.AssetCode,
-                // AssetStatus = asset.AssetStatus,
+                Specification = asset.Specification,
+                InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
+                    ? dateTimeParseResult
+                    : DateTime.Now,
                 AssetState = Enum.TryParse(asset.AssetState, out enumParseResult)
                     ? enumParseResult
-                    : AssetState.WaitingForRecycle,
+                    : AssetState.Available,
             };
             return result;
         }
@@ -153,19 +160,5 @@ namespace backend.Utilities
             };
             return result;
         }
-        // public static User UserDTOToEntity(this UserDTO user)
-        // {
-        //     User result = new User
-        //     {
-        //         UserId = user.UserId,
-        //         UserName = user.UserName,
-        //         PasswordHash = user.PasswordHash,
-        //         Role = user.Role,
-        //         FirstName = user.FirstName,
-        //         LastName = user.LastName,
-        //         JoindedDate = user.JoindedDate
-        //     };
-        //     return result;
-        // }
     }
 }

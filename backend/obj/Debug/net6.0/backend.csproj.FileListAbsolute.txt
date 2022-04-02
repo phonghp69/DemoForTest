@@ -218,3 +218,5 @@ E:\rookies\RookiesTeam5\backend\obj\Debug\net6.0\backend.csproj.CopyComplete
 E:\rookies\RookiesTeam5\backend\obj\Debug\net6.0\refint\backend.dll
 E:\rookies\RookiesTeam5\backend\obj\Debug\net6.0\backend.genruntimeconfig.cache
 E:\rookies\RookiesTeam5\backend\obj\Debug\net6.0\ref\backend.dll
+D:\Rookies\RookiesTeam5\backend\bin\Debug\net6.0\Castle.Core.dll
+D:\Rookies\RookiesTeam5\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll

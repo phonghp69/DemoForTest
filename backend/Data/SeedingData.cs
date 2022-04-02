@@ -12,18 +12,18 @@ namespace backend.Data
                 IEnumerable<Category> result = new List<Category>() {
                     new Category() {
                         CategoryId = 1,
-                        CategoryName = "Technology",
-                        Perfix = "......"
+                        CategoryName = "Laptop",
+                        Perfix = "LA"
                     },
                     new Category() {
                         CategoryId = 2,
-                        CategoryName = "Personal items",
-                        Perfix = "......"
+                        CategoryName = "Monitor",
+                        Perfix = "MO"
                     },
                     new Category() {
                         CategoryId = 3,
-                        CategoryName = "Other",
-                        Perfix = "......"
+                        CategoryName = "Personal Computer",
+                        Perfix = "PC"
                     },
                 };
                 return result;
@@ -37,23 +37,32 @@ namespace backend.Data
                     new Asset() {
                         AssetId = 1,
                         CategoryId = 1,
-                        AssetName = "mouse keyboard",
-                        AssetCode = ".........,",
-                        AssetState = AssetState.WaitingForRecycle
+                        CategoryName = "Laptop",
+                        AssetName = "HP Zenbook8",
+                        AssetCode = "LA1",
+                        Specification ="this is sample data",
+                        InstalledDate = DateTime.Now,
+                        AssetState = AssetState.Available
                     },
                     new Asset() {
                         AssetId = 2,
                         CategoryId = 2,
-                        AssetName = "name tags",
-                        AssetCode = ".........,",
-                        AssetState = AssetState.Availiable
+                        CategoryName = "Monitor",
+                        AssetName = "Dell UltralSharp",
+                        AssetCode = "MO1",
+                        Specification ="this is sample data",
+                        InstalledDate = DateTime.Now,
+                        AssetState = AssetState.Available
                     },
                     new Asset() {
                         AssetId =3,
                         CategoryId = 3,
-                        AssetName = "flowers",
-                        AssetCode = ".........,",
-                        AssetState = AssetState.NotAvailiable
+                        CategoryName = "Personal Computer",
+                        AssetName = "HP PC",
+                        AssetCode = "PC1",
+                        Specification="this is sample data",
+                        InstalledDate = DateTime.Now,
+                        AssetState = AssetState.Available
                     },
                 };
                 return result;
@@ -73,7 +82,7 @@ namespace backend.Data
                         Gender = Gender.Male,
                         Location = "Ha Noi",
                         IsFirstLogin = true,
-                        StaffCode = "........",
+                        StaffCode = "AD1",
                         Role = Role.Admin,
                         JoindedDate = DateTime.Now,
                         DateOfBirth = new DateTime(2000,2,23)
@@ -87,7 +96,7 @@ namespace backend.Data
                         Gender = Gender.Male,
                         Location = "Bac Giang",
                         IsFirstLogin = true,
-                        StaffCode = "........",
+                        StaffCode = "US2",
                         Role = Role.User,
                         JoindedDate = DateTime.Now,
                         DateOfBirth = new DateTime(1999,3,26)

@@ -11,11 +11,13 @@ namespace backend.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssetId { get; set; }
         public int CategoryId { get; set; }
-        public string CategoryName{get;set;}
+        public string CategoryName { get; set; }
         public string AssetName { get; set; }
         [Required]
-        public string? AssetCode{get;set;}
-        [Required, DefaultValue(AssetState.WaitingForRecycle)]
+        public string AssetCode { get; set; }
+        public string Specification { get; set; }
+        public DateTime InstalledDate { get; set; }
+        [Required, DefaultValue(AssetState.Available)]
         public AssetState AssetState { get; set; }
         public virtual Category Category { get; set; }
     }

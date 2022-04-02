@@ -16,8 +16,8 @@ namespace backend.Entities
         public int ProcessedByUserId { get; set; }
         public virtual User? ProcessedBy { get; set; }
         public int AssignmentId { get; set; }
+        public virtual Assignment Assignment { get; set; }
         [Required, DefaultValue(RequestState.WaitingForReturning)]
         public RequestState RequestState { get; set; }
-        public virtual Assignment Assignment { get; set; }
     }
 }
