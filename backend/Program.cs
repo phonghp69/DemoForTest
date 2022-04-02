@@ -45,8 +45,9 @@ builder.Services.AddAuthentication(x =>
 });
 
 //Services
+builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddTransient<IJwtUtils, JwtUtils>();
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();

@@ -6,7 +6,6 @@ namespace backend.Interfaces
 {
     public interface IUserService
     {
-        AuthenticateResponse Authenticate(AuthenticateRequest model);
         public Task<IActionResult> AddUser(UserDTO user);
         public Task<IActionResult> UpdateUser(int id, UserDTO user);
         public Task<IActionResult> DeleteUser(int id);
