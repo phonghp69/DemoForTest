@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using backend.Authorization;
 using backend.Data;
 using backend.Helpers;
 using backend.Interfaces;

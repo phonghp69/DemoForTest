@@ -34,6 +34,7 @@ namespace backend.Utilities
                 AssetName = entity.AssetName,
                 AssetCode = entity.AssetCode,
                 Specification = entity.Specification,
+                Location = entity.Location,
                 InstalledDate = entity.InstalledDate.ToString(),
                 AssetState = entity.AssetState.ToString(),
             };
@@ -49,6 +50,7 @@ namespace backend.Utilities
                 AssetName = asset.AssetName,
                 AssetCode = asset.AssetCode,
                 Specification = asset.Specification,
+                Location = asset.Location,
                 InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
                     ? dateTimeParseResult
                     : DateTime.Now,
@@ -58,7 +60,6 @@ namespace backend.Utilities
             };
             return result;
         }
-
         public static AssignmentDTO AssignmentEntityToDTO(this Assignment entity)
         {
             AssignmentDTO result = new AssignmentDTO
@@ -72,7 +73,6 @@ namespace backend.Utilities
             };
             return result;
         }
-
         public static Assignment AssignmentDTOToEntity(this AssignmentDTO assignment)
         {
             Assignment result = new Assignment
@@ -86,7 +86,6 @@ namespace backend.Utilities
             };
             return result;
         }
-
         public static UserDTO UserEntityToDTO(this User entity)
         {
             UserDTO result = new UserDTO

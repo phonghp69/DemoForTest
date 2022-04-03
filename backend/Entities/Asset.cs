@@ -16,6 +16,7 @@ namespace backend.Entities
         [Required]
         public string AssetCode { get; set; }
         public string Specification { get; set; }
+        public string Location { get; set; }
         public DateTime InstalledDate { get; set; }
         [Required, DefaultValue(AssetState.Available)]
         public AssetState AssetState { get; set; }
