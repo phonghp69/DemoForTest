@@ -63,6 +63,7 @@ namespace backend.Services
                     foundAsset.AssetName = asset.AssetName;
                     foundAsset.CategoryId = asset.CategoryId;
                     foundAsset.CategoryName = foundCategory.CategoryName;
+                    foundAsset.AssetCode = foundCategory.Perfix + "0000" + foundAsset.AssetId.ToString();
                     foundAsset.Specification = asset.Specification;
                     foundAsset.InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
                                 ? dateTimeParseResult
