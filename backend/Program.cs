@@ -3,6 +3,7 @@ using backend.Data;
 using backend.Helpers;
 using backend.Interfaces;
 using backend.Services;
+using backend.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -50,6 +51,7 @@ builder.Services.AddTransient<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddScoped<IAssetRepository, AssetRepository>();
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 
 var app = builder.Build();

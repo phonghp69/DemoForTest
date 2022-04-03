@@ -2,6 +2,7 @@ using backend.Interfaces;
 using backend.DTO;
 using Microsoft.AspNetCore.Mvc;
 using backend.Entities;
+using backend.Models.Assets;
 
 namespace backend.Controllers
 {
@@ -16,15 +17,15 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task AddAsset([FromBody] AssetDTO asset)
+        public async Task AddAsset([FromBody] AssetCreateModel asset, string location)
         {
-            await _service.AddAsset(asset);
+            await _service.AddAsset(asset, location);
         }
 
         [HttpPut("{id}")]
-        public async Task UpdateAsset(int id, [FromBody] AssetDTO asset)
+        public async Task UpdateAsset([FromBody] AssetUpdateModel asset, int assetId)
         {
-            await _service.UpdateAsset(asset, id);
+            await _service.UpdateAsset(asset, assetId);
         }
 
         [HttpDelete("{id}")]

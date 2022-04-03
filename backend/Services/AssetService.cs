@@ -26,26 +26,13 @@ namespace backend.Services
             await _assetRepository.AddAsset(asset, location);
         }
 
-        public async Task UpdateAsset(AssetDTO asset, int id)
+        public async Task UpdateAsset(AssetUpdateModel asset, int assetId)
         {
+            await _assetRepository.UpdateAsset(asset, assetId);
         }
         public async Task DeleteAsset(int id)
         {
-            try
-            {
-                var foundAssigment = _context.Assignments.FirstOrDefault(x => x.AssetId == id);
-                var foundAsset = await _context.Assets.FindAsync(id);
-                if (foundAsset != null && foundAssigment == null)
-                {
-                    _context.Assets.Remove(foundAsset);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
+            await _assetRepository.DeleteAsset(id);
         }
         public async Task<ActionResult<AssetDTO>> GetAsset(int id)
         {
