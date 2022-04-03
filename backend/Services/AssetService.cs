@@ -6,80 +6,28 @@ using backend.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using backend.Enums;
 using backend.Entities;
+using backend.Models.Assets;
+using backend.Repositories;
 
 namespace backend.Services
 {
     public class AssetService : IAssetService
     {
         private MyDbContext _context;
-        public AssetService(MyDbContext context)
+        private readonly IAssetRepository _assetRepository;
+        public AssetService(MyDbContext context, IAssetRepository assetRepository)
         {
             _context = context;
+            _assetRepository = assetRepository;
         }
-        public async Task AddAsset(AssetDTO asset)
+
+        public async Task AddAsset(AssetCreateModel asset, string location)
         {
-            try
-            {
-                var foundCategory = await _context.Categories.FindAsync(asset.CategoryId);
-                int code = _context.Assets.ToList().Count + 1;
-                if (foundCategory != null)
-                {
-                    DateTime dateTimeParseResult;
-                    AssetState enumParseResult;
-                    Asset newAsset = new Asset
-                    {
-                        CategoryId = asset.CategoryId,
-                        CategoryName = foundCategory.CategoryName,
-                        AssetName = asset.AssetName,
-                        AssetCode = foundCategory.Perfix + "0000" + code.ToString(),
-                        Specification = asset.Specification,
-                        InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
-                            ? dateTimeParseResult
-                            : DateTime.Now,
-                        AssetState = Enum.TryParse(asset.AssetState, out enumParseResult)
-                            ? enumParseResult
-                            : AssetState.Available,
-                    };
-                    await _context.Assets.AddAsync(newAsset);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            await _assetRepository.AddAsset(asset, location);
         }
+
         public async Task UpdateAsset(AssetDTO asset, int id)
         {
-            try
-            {
-                var foundCategory = await _context.Categories.FindAsync(asset.CategoryId);
-                var foundAsset = await _context.Assets.FindAsync(id);
-                if (foundAsset != null || foundCategory != null)
-                {
-                    DateTime dateTimeParseResult;
-                    AssetState enumParseResult;
-                    //Enter new data for founded asset
-                    foundAsset.AssetName = asset.AssetName;
-                    foundAsset.CategoryId = asset.CategoryId;
-                    foundAsset.CategoryName = foundCategory.CategoryName;
-                    foundAsset.AssetCode = foundCategory.Perfix + "0000" + foundAsset.AssetId.ToString();
-                    foundAsset.Specification = asset.Specification;
-                    foundAsset.InstalledDate = DateTime.TryParse(asset.InstalledDate, out dateTimeParseResult)
-                                ? dateTimeParseResult
-                                : DateTime.Now;
-                    foundAsset.AssetState = Enum.TryParse(asset.AssetState, out enumParseResult)
-                                ? enumParseResult
-                                : AssetState.Available;
-
-                    _context.Assets.Update(foundAsset);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
         public async Task DeleteAsset(int id)
         {

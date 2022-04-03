@@ -41,6 +41,7 @@ namespace backend.Data
                         AssetName = "HP Zenbook8",
                         AssetCode = "LA1",
                         Specification ="this is sample data",
+                        Location = "sample location",
                         InstalledDate = DateTime.Now,
                         AssetState = AssetState.Available
                     },
@@ -51,6 +52,7 @@ namespace backend.Data
                         AssetName = "Dell UltralSharp",
                         AssetCode = "MO1",
                         Specification ="this is sample data",
+                        Location = "sample location",
                         InstalledDate = DateTime.Now,
                         AssetState = AssetState.Available
                     },
@@ -61,6 +63,7 @@ namespace backend.Data
                         AssetName = "HP PC",
                         AssetCode = "PC1",
                         Specification="this is sample data",
+                        Location = "sample location",
                         InstalledDate = DateTime.Now,
                         AssetState = AssetState.Available
                     },

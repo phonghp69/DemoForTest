@@ -70,7 +70,7 @@ namespace backend.Migrations
                             AssetState = 0,
                             CategoryId = 1,
                             CategoryName = "Laptop",
-                            InstalledDate = new DateTime(2022, 4, 2, 14, 59, 59, 459, DateTimeKind.Local).AddTicks(7657),
+                            InstalledDate = new DateTime(2022, 4, 3, 21, 22, 59, 150, DateTimeKind.Local).AddTicks(8404),
                             Specification = "this is sample data"
                         },
                         new
@@ -81,7 +81,7 @@ namespace backend.Migrations
                             AssetState = 0,
                             CategoryId = 2,
                             CategoryName = "Monitor",
-                            InstalledDate = new DateTime(2022, 4, 2, 14, 59, 59, 459, DateTimeKind.Local).AddTicks(7686),
+                            InstalledDate = new DateTime(2022, 4, 3, 21, 22, 59, 150, DateTimeKind.Local).AddTicks(8421),
                             Specification = "this is sample data"
                         },
                         new
@@ -92,7 +92,7 @@ namespace backend.Migrations
                             AssetState = 0,
                             CategoryId = 3,
                             CategoryName = "Personal Computer",
-                            InstalledDate = new DateTime(2022, 4, 2, 14, 59, 59, 459, DateTimeKind.Local).AddTicks(7689),
+                            InstalledDate = new DateTime(2022, 4, 3, 21, 22, 59, 150, DateTimeKind.Local).AddTicks(8423),
                             Specification = "this is sample data"
                         });
                 });
@@ -138,7 +138,7 @@ namespace backend.Migrations
                             AssignmentId = 1,
                             AssetId = 2,
                             AssignedByUserId = 1,
-                            AssignedDate = new DateTime(2022, 4, 2, 15, 0, 0, 50, DateTimeKind.Local).AddTicks(4),
+                            AssignedDate = new DateTime(2022, 4, 3, 21, 22, 59, 748, DateTimeKind.Local).AddTicks(2133),
                             AssignedToUserId = 2,
                             Note = "this is sample data"
                         });
@@ -288,10 +288,10 @@ namespace backend.Migrations
                             FirstName = "Dao",
                             Gender = 0,
                             IsFirstLogin = true,
-                            JoindedDate = new DateTime(2022, 4, 2, 14, 59, 59, 662, DateTimeKind.Local).AddTicks(3434),
+                            JoindedDate = new DateTime(2022, 4, 3, 21, 22, 59, 346, DateTimeKind.Local).AddTicks(5988),
                             LastName = "Quy Vuong",
                             Location = "Ha Noi",
-                            PasswordHash = "$2a$11$9VZfHhpXAaWWnEWfYkKhxuZ5IsEP48xL/FG.AhOyFhkYxFx/jdx0K",
+                            PasswordHash = "$2a$11$LzZZ95bzwMMuJzPPXns3puHuoC6PoPrdsOIbpzHx2oXXIL.zyhRry",
                             Role = 0,
                             StaffCode = "AD1",
                             UserName = "Admin"
@@ -303,10 +303,10 @@ namespace backend.Migrations
                             FirstName = "Bui",
                             Gender = 0,
                             IsFirstLogin = true,
-                            JoindedDate = new DateTime(2022, 4, 2, 14, 59, 59, 855, DateTimeKind.Local).AddTicks(6545),
+                            JoindedDate = new DateTime(2022, 4, 3, 21, 22, 59, 547, DateTimeKind.Local).AddTicks(9337),
                             LastName = "Chi Huong",
                             Location = "Bac Giang",
-                            PasswordHash = "$2a$11$uXSGsUWNVQmG/gCFh69hMuSKKCzhTvQQi0uvrOeEk9cWAP0PHRUPC",
+                            PasswordHash = "$2a$11$CVqK2N48zcHl1aOTRk1Ls.vOB8bDprt1iQbVOkZdv6QwfHjorj9KW",
                             Role = 1,
                             StaffCode = "US2",
                             UserName = "Staff"
@@ -318,10 +318,10 @@ namespace backend.Migrations
                             FirstName = "Bui",
                             Gender = 2,
                             IsFirstLogin = true,
-                            JoindedDate = new DateTime(2022, 4, 2, 15, 0, 0, 49, DateTimeKind.Local).AddTicks(9531),
+                            JoindedDate = new DateTime(2022, 4, 3, 21, 22, 59, 748, DateTimeKind.Local).AddTicks(1548),
                             LastName = "Chi Huong",
                             Location = "Cao Bang",
-                            PasswordHash = "$2a$11$mSHmk7mLFbdwO6KHw0O3U.CtYjETdpQFxXmV8EjygrGprYSb0BDPO",
+                            PasswordHash = "$2a$11$3CfKFnKGpnWj.q4gbnKmYe0LWe0SdMdxAozxZeHGy983Ijg9aF3h2",
                             Role = 1,
                             StaffCode = "........",
                             UserName = "Huong"

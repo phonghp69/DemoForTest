@@ -3,12 +3,16 @@ using System.Security.Claims;
 using System.Text;
 using backend.Entities;
 using backend.Helpers;
-using backend.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace backend.Authorization
 {
+    public interface IJwtUtils
+    {
+        public string GenerateJwtToken(User user);
+        public int? ValidateJwtToken(string token);
+    }
     public class JwtUtils : IJwtUtils
     {
         private readonly AppSettings _appSettings;
