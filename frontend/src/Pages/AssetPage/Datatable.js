@@ -12,9 +12,6 @@ import {
   useGridSelector,
 } from "@mui/x-data-grid";
 import Pagination from "@mui/material/Pagination";
-import Popup from "../../Components/Modal/Popup";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
@@ -34,7 +31,6 @@ function CustomPagination() {
 }
 const styles = makeStyles({
   table: {
-    // boxShadow: "2px 2px 5px -1px rgba(0,0,0,0.75)",
     width: "cover",
     margin: "25px 50px 0 50px",
   },
@@ -44,9 +40,6 @@ const Datatable = () => {
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   let [filteredData] = useState();
-  const [openPopup, setOpenPopup] = useState(false);
-  const [disable] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     loadData();
@@ -62,10 +55,10 @@ const Datatable = () => {
   };
 
   const modifiedData = gridData.filter(item => {
-    return item.name.includes(searchText)  
+    return item.assetName.includes(searchText)  
   }).map(({ ...item }) => ({
     ...item,
-    key: item.assignmentId,
+    key: item.assetId,
   }));
 
   const handleDelete = (value) => {
@@ -74,19 +67,6 @@ const Datatable = () => {
     setGridData(filteredData);
   };
 
-  const toggleChangeStatus = (value) => {
-    const dataSource = [...modifiedData];
-    const filteredData = dataSource.map((item) => {
-      if (item.assetId === value.id) {
-        return {
-          ...item,
-          isDisable: !item.isDisable,
-        }
-      }
-      return item;
-    });
-    setGridData(filteredData);
-  };
 
   const classes = styles();
   const columns = [
@@ -98,24 +78,19 @@ const Datatable = () => {
     },
     {
       headerName: "Asset Code",
-      field: "assetId",
+      field: "assetCode",
       width: 150,
     },
     {
       headerName: "Asset Name",
-      field: "name",
+      field: "assetName",
       width: 250,
     },
     {
       headerName: "Category",
-      field: "categoryId",
+      field: "categoryName",
       width: 200,
     },
-    // {
-    //   headerName: "Assigned By",
-    //   field: "website",
-    //   width: 200,
-    // },
     {
       headerName: "State",
       field: "assetState",
@@ -139,19 +114,8 @@ const Datatable = () => {
                 <RemoveCircleOutlineIcon fontSize="small" />
               </Button>
             
-              <Button
-                disabled={item.row.isDisable}
-                size="small"
-                color="secondary"
-                onClick={() => {
-                  setOpenPopup(true);
-                  setSelectedItem(item);
-                }}
-              >
-                <ChangeCircleIcon fontSize="small" />
-              </Button>
   
-              <Link style={{ textDecoration: "none" }} to={`/posts/${item.id}`}>
+              <Link style={{ textDecoration: "none" }} to={`/asset/${item.id}`}>
                 <Button size="small">
                   <InfoIcon fontSize="small" />
                 </Button>
@@ -197,36 +161,6 @@ const Datatable = () => {
           getRowId={row => row.assetId}
         />
       </div>
-
-      <Popup
-        title="Are you sure?"
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-      >
-        <div>
-          <p>Do you want to create a returning request for this asset?</p>
-        </div>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => {
-            setOpenPopup(false);
-            setGridData();
-            toggleChangeStatus(selectedItem);
-            setSelectedItem(null);
-          }}
-        >
-          Yes
-        </Button>
-        <Button
-          color="secondary"
-          onClick={() => {
-            setOpenPopup(false);
-          }}
-        >
-          No
-        </Button>
-      </Popup>
     </div>
   );
 };

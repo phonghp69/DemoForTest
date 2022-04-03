@@ -12,6 +12,7 @@ import { theme } from "./Assets/Styles/theme";
 
 import AssetPage from "./Pages/AssetPage/AssetPage";
 import PrivateRoute from './Routes/PrivateRoute'
+import AssetDetail from "./Pages/AssetPage/AssetDetail";
 function App() {
 
   return (
@@ -27,23 +28,17 @@ function App() {
         <Grid
           item
           xs={9}
-          sx={{
-            backgroundColor: "#d3d3d3",
-          }}
-        >
-          <Main />
-         
+        >         
           <Routes>
-         
-         
           <Route element={<PrivateRoute />}>
-            
            <Route path="/asset-list" element={<AssetPage />} />
             <Route path="/assignment-list" element={<AssignmentPage />} />
+        <Route path = "/asset/:id" element={<AssetDetail/>} />
             <Route path="/"/>
           </Route>
             <Route path="/login" element={<LoginPage />} />
           </Routes>
+
         </Grid>
         
       </Grid>
