@@ -26,7 +26,7 @@ on:
 env:
   Backend_URI: https://rookiesgroup5.azurewebsites.net
   AZURE_WEBAPP_NAME: group5reactjs    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: 'frontend/build'      # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: 'RookiesTeam5/frontend/build'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '14.x'                # set this to the node version to use
 
 jobs:
