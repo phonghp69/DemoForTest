@@ -1,6 +1,7 @@
 using backend.Data;
 using backend.DTO;
 using backend.Interfaces;
+using backend.Models.Users;
 using backend.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,45 @@ namespace backend.Services
         public Task<IActionResult> DeleteUser(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task ChangePasswordFirstLogin(FirstLogin login)
+        {
+            try
+            {
+                var foundUser = _context.Users.FirstOrDefault(x => x.UserName == login.UserName);
+                if (foundUser != null && foundUser.IsFirstLogin == true)
+                {
+                    foundUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(login.NewPassword);
+                    foundUser.IsFirstLogin = false;
+
+                    _context.Users.Update(foundUser);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task ChangePassWord(ChangePassword changePassword)
+        {
+            try
+            {
+                var foundUser = _context.Users.FirstOrDefault(x => x.UserName == changePassword.UserName);
+                if (foundUser != null && changePassword.NewPassword == changePassword.ConfirmPassword)
+                {
+                    foundUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(changePassword.NewPassword);
+
+                    _context.Users.Update(foundUser);
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }
