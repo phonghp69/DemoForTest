@@ -15,8 +15,7 @@ builder.Services.AddCors();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:HuongConnection", providerOptions => providerOptions.EnableRetryOnFailure()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
-builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:VuongConnection", providerOptions => providerOptions.EnableRetryOnFailure()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:AssetConnection", providerOptions => providerOptions.EnableRetryOnFailure()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 builder.Services.AddSwaggerGen();
 //Services
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
