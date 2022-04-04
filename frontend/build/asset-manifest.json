@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.776aedbf.css",
+    "main.js": "/static/js/main.1a304609.js",
+    "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
+    "static/media/nashtech-logo.jpg": "/static/media/nashtech-logo.0814ba13854fe40d3712.jpg",
+    "index.html": "/index.html",
+    "main.776aedbf.css.map": "/static/css/main.776aedbf.css.map",
+    "main.1a304609.js.map": "/static/js/main.1a304609.js.map",
+    "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.776aedbf.css",
+    "static/js/main.1a304609.js"
+  ]
+}

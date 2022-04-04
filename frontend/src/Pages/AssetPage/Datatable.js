@@ -48,7 +48,7 @@ const Datatable = () => {
   const loadData = async () => {
     setLoading(true);
     const response = await axios.get(
-      "https://localhost:7116/Asset/all"
+      `${process.env.Backend_URI}/Asset/all`
     );
     setGridData(response.data);
     setLoading(false);

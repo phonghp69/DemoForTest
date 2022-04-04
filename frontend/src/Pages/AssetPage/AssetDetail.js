@@ -27,7 +27,7 @@ export default function AssetDetail({ row }) {
   const [item, setItem] = useState({});
 
   const fetchItem = async () => {
-    const fetchItem = await fetch(`https://localhost:7116/Asset/${id}`);
+    const fetchItem = await fetch(`${process.env.Backend_URI}/Asset/${id}`);
     const item = await fetchItem.json();
     setItem(item);
   };

@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./login.css";
-import { Modal } from "antd";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Popup from "../../Components/Modal/Popup";
-import Paper from '@mui/material/Paper';
+import Paper from "@mui/material/Paper";
+
 const FirstLogin = () => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [setIsModalVisible] = useState(true);
   const [openPopup, setOpenPopup] = useState(true);
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("userName");
@@ -18,7 +18,7 @@ const FirstLogin = () => {
   const submit = () => {
     axios({
       method: "PUT",
-      url: "",
+      url: `${process.env.Backend_URI}`,
       data: data,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -38,37 +38,37 @@ const FirstLogin = () => {
   return (
     <div className="App">
       <Paper elevation={3}>
-      <Popup
-        color="error"
-        title="You must change password in first login !"
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-      >
-        <p>This is the first time you logged in </p>
-        <p>You have to change password to continue</p>
-        <div>
-          <Form.Control
-            type="password"
-            placeholder="New Password"
-            className="form-control"
-            id="title"
-            name="password"
-            value={data.password}
-            onChange={(e) => handle(e)}
-            required
-          />
-        </div>
-        <br />
-        <Button
-          className="btn btn-danger"
-          onClick={() => {
-            setOpenPopup(false);
-            submit();
-          }}
+        <Popup
+          color="error"
+          title="You must change password in first login !"
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
         >
-          Save
-        </Button>
-      </Popup>
+          <p>This is the first time you logged in </p>
+          <p>You have to change password to continue</p>
+          <div>
+            <Form.Control
+              type="password"
+              placeholder="New Password"
+              className="form-control"
+              id="title"
+              name="password"
+              value={data.password}
+              onChange={(e) => handle(e)}
+              required
+            />
+          </div>
+          <br />
+          <Button
+            className="btn btn-danger"
+            onClick={() => {
+              setOpenPopup(false);
+              submit();
+            }}
+          >
+            Save
+          </Button>
+        </Popup>
       </Paper>
     </div>
   );
