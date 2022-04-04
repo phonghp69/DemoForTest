@@ -13,7 +13,6 @@ import {
 } from "@mui/x-data-grid";
 import Pagination from "@mui/material/Pagination";
 import Popup from "../../Components/Modal/Popup";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import InfoIcon from "@mui/icons-material/Info";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
@@ -43,9 +42,7 @@ const Datatable = () => {
   const [gridData, setGridData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-  let [filteredData] = useState();
   const [openPopup, setOpenPopup] = useState(false);
-  const [disable] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {

@@ -39,7 +39,6 @@ const Datatable = () => {
   const [gridData, setGridData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-  let [filteredData] = useState();
 
   useEffect(() => {
     loadData();

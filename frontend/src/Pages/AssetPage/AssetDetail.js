@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
-import { Card, CardHeader, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 
 const styles = makeStyles({
   wrapper: {
@@ -18,7 +18,7 @@ const styles = makeStyles({
     marginBottom: "2.5rem",
   },
 });
-export default function AssetDetail({ row }) {
+export default function AssetDetail() {
   const { id } = useParams();
   useEffect(() => {
     fetchItem();
