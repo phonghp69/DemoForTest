@@ -6,7 +6,7 @@ namespace backend.Interfaces
 {
     public interface IAssetService
     {
-        public Task AddAsset(AssetCreateModel asset, string Location);
+        public Task AddAsset(AssetCreateModel asset, string location);
         public Task UpdateAsset(AssetUpdateModel asset, int assetId);
         public Task DeleteAsset(int id);
         public Task<ActionResult<AssetDTO>> GetAsset(int id);

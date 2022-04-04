@@ -16,19 +16,19 @@ namespace backend.Controllers
             _service = service;
         }
 
-        [HttpPost]
+        [HttpPost("/add")]
         public async Task AddAsset([FromBody] AssetCreateModel asset, string location)
         {
             await _service.AddAsset(asset, location);
         }
 
-        [HttpPut("{id}")]
-        public async Task UpdateAsset([FromBody] AssetUpdateModel asset, int assetId)
+        [HttpPost("/update")]
+        public async Task UpdateAsset([FromBody] AssetUpdateModel asset, int id)
         {
-            await _service.UpdateAsset(asset, assetId);
+            await _service.UpdateAsset(asset, id);
         }
-
-        [HttpDelete("{id}")]
+        
+        [HttpDelete("/delete")]
         public async Task DeleteAsset(int id)
         {
             await _service.DeleteAsset(id);
@@ -45,6 +45,5 @@ namespace backend.Controllers
         {
             return await _service.GetAllAsset();
         }
-        
     }
 }

@@ -3,7 +3,6 @@ using backend.Data;
 using backend.Helpers;
 using backend.Interfaces;
 using backend.Services;
-using backend.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -19,6 +18,13 @@ builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:HuongConnection", providerOptions => providerOptions.EnableRetryOnFailure()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer("name=ConnectionStrings:VuongConnection", providerOptions => providerOptions.EnableRetryOnFailure()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 builder.Services.AddSwaggerGen();
+//Services
+builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+builder.Services.AddScoped<IJwtUtils, JwtUtils>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAssetService, AssetService>();
+builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 
 // configure strongly typed settings objects
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
@@ -44,15 +50,6 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false
     };
 });
-
-//Services
-builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
-builder.Services.AddTransient<IJwtUtils, JwtUtils>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IAssetService, AssetService>();
-builder.Services.AddScoped<IAssetRepository, AssetRepository>();
-builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 
 var app = builder.Build();
 
