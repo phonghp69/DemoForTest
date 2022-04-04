@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Popup from "../../Components/Modal/Popup";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 function Topbar() {
   const token = localStorage.getItem('token');
   const [openPopup, setOpenPopup] = useState(false);

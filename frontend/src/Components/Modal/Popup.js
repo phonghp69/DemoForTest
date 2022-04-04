@@ -1,7 +1,6 @@
 import React from 'react'
 import { Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import ActionButton from '../ActionButton/ActionButton';
+
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function Popup(props) {
 
-    const { title, children, openPopup, setOpenPopup } = props;
+    const { title, children, openPopup } = props;
     const classes = useStyles();
 
     return (
