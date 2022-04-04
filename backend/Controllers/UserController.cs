@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Interfaces;
 using backend.Enums;
 using backend.DTO;
+using backend.Models.Users;
 
 namespace backend.Controllers
 {
@@ -24,6 +25,18 @@ namespace backend.Controllers
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO user)
         {
             return await _service.UpdateUser( id,user);
+        }
+
+        [HttpPut("/first-login")]
+        public async Task ChangePasswordFirstLogin(FirstLogin login)
+        {
+            await _service.ChangePasswordFirstLogin(login);
+        }
+
+        [HttpPut("/change-password")]
+        public async Task ChangePassword(ChangePassword changePassword)
+        {
+            await _service.ChangePassWord(changePassword);
         }
 
         [HttpDelete("{id}")]
