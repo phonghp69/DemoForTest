@@ -55,7 +55,11 @@ const Leftbar = () => {
         </Typography>
       </div>
       <div className={classes.item}>
-        <Typography className={classes.text}>Home</Typography>
+        <Typography className={classes.text}>
+        <Link to="/"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+        Home
+          </Link>
+        </Typography>
       </div>
       <div className={classes.item}>
         <Typography className={classes.text}>Manage User</Typography>

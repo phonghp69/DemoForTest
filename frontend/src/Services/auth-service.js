@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const login = async (userName, password) => {
-    const response = await axios.post("https://localhost:7116/Users/Authenticate", {
+    const response = await axios.post("https://localhost:7116/api/Authenticate/Authenticate", {
         userName,
         password,
     });

@@ -4,7 +4,7 @@ import authService from "../../Services/auth-service";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, Col } from 'react-bootstrap';
 import './login.css';
-
+import Paper from '@mui/material/Paper';
 const Login = () => {
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -18,8 +18,11 @@ const Login = () => {
         try {
             await authService.login(userName, password).then(
                 (response) => {
-                    localStorage.setItem("token", response.token)                 
-                    localStorage.setItem("userName",response.username)
+                    localStorage.setItem("token", response.token);                 
+                    localStorage.setItem("userName",response.userName);
+                    localStorage.setItem("role", response.role);
+                    localStorage.setItem("isFirstLogin",response.isFistLogin);
+                   
                     navigate('/');
                     window.location.reload();
                 },
@@ -33,11 +36,13 @@ const Login = () => {
     }
 
     return (
+       
         <div className="App">
            <div className="card-body">
             {localStorage.getItem("token") ?
                 (<div style={{ color: 'red', fontSize: '30px', fontWeight: 'bold' }}>You're Login</div>) :
-                (<Form onSubmit={handleLogin}>
+                ( 
+                <Form onSubmit={handleLogin}>
                    <lable style={{ fontSize: '30px', fontWeight: 'bold'}}>Login</lable>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <div className="center_Form">
@@ -73,9 +78,11 @@ const Login = () => {
                             Login
                         </Button>
                     </div>
-                </Form>)}
+                </Form>
+                 )}
         </div>
         </div>
+       
     )
 }
 export default Login;
