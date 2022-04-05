@@ -18,7 +18,7 @@ const FirstLogin = () => {
   const submit = () => {
     axios({
       method: "PUT",
-      url: `${process.env.Backend_URI}`,
+      url: `${process.env.Backend_URI}/first-login`,
       data: data,
       headers: {
         Authorization: `Bearer ${token}`,
