@@ -1,20 +1,30 @@
+using backend.Authorization;
 using backend.Data;
 using backend.DTO;
+using backend.Entities;
+using backend.Helpers;
 using backend.Interfaces;
 using backend.Models.Users;
 using backend.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace backend.Services
 {
     public class UserService : IUserService
     {
         private MyDbContext _context;
-
-        public UserService(MyDbContext context)
+        private IJwtUtils _jwtUtils;
+        private readonly AppSettings _appSettings;
+        public UserService(
+            MyDbContext context,
+            IJwtUtils jwtUtils,
+            IOptions<AppSettings> appSettings)
         {
             _context = context;
+            _jwtUtils = jwtUtils;
+            _appSettings = appSettings.Value;
         }
 
         public async Task<List<UserDTO>> GetAllUser()
@@ -60,6 +70,17 @@ namespace backend.Services
         {
             throw new NotImplementedException();
         }
+        public IEnumerable<User> GetAll()
+        {
+            return _context.Users;
+        }
+
+        public User GetById(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null) throw new KeyNotFoundException("User not found");
+            return user;
+        }
 
         public async Task ChangePasswordFirstLogin(FirstLogin login)
         {
@@ -79,6 +100,19 @@ namespace backend.Services
             {
                 throw e;
             }
+        }
+        public AuthenticateResponse Authenticate(AuthenticateRequest model)
+        {
+            var user = _context.Users.SingleOrDefault(x => x.UserName == model.UserName);
+
+            // validate
+            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                throw new AppException("Username or password is incorrect");
+
+            // authentication successful so generate jwt token
+            var jwtToken = _jwtUtils.GenerateJwtToken(user);
+
+            return new AuthenticateResponse(user, jwtToken);
         }
 
         public async Task ChangePassWord(ChangePassword changePassword)

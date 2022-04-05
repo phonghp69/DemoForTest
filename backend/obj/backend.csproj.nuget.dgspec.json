@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\rookies\\RookiesTeam5\\backend\\backend.csproj": {}
+    "E:\\rookies\\RookiesTeam5\\backend\\backend.csproj": {}
   },
   "projects": {
-    "e:\\rookies\\RookiesTeam5\\backend\\backend.csproj": {
+    "E:\\rookies\\RookiesTeam5\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\rookies\\RookiesTeam5\\backend\\backend.csproj",
+        "projectUniqueName": "E:\\rookies\\RookiesTeam5\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "e:\\rookies\\RookiesTeam5\\backend\\backend.csproj",
+        "projectPath": "E:\\rookies\\RookiesTeam5\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\DELL VOSTRO\\.nuget\\packages\\",
-        "outputPath": "e:\\rookies\\RookiesTeam5\\backend\\obj\\",
+        "outputPath": "E:\\rookies\\RookiesTeam5\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\DELL VOSTRO\\AppData\\Roaming\\NuGet\\NuGet.Config"

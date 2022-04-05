@@ -156,30 +156,30 @@ namespace backend.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "FirstName", "Gender", "IsFirstLogin", "JoindedDate", "LastName", "Location", "PasswordHash", "Role", "StaffCode", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, true, new DateTime(2022, 4, 3, 23, 37, 14, 756, DateTimeKind.Local).AddTicks(9158), "Quy Vuong", "Ha Noi", "$2a$11$AmeBik/zdYASJyygdW0fPuSt2Soq.dQRF8N3cHqX8UOyBzivLYOV2", 0, "AD1", "Admin" },
-                    { 2, new DateTime(1999, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bui", 0, true, new DateTime(2022, 4, 3, 23, 37, 14, 950, DateTimeKind.Local).AddTicks(7716), "Chi Huong", "Bac Giang", "$2a$11$2mvHVtFyg.uBtWtsWpz5DelLhuv47Gihawos53g3CTz5DMcbITQWy", 1, "US2", "Staff" },
-                    { 3, new DateTime(2001, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bui", 2, true, new DateTime(2022, 4, 3, 23, 37, 15, 143, DateTimeKind.Local).AddTicks(245), "Chi Huong", "Cao Bang", "$2a$11$r0mjXfRxaawCicBEVmt3sOjOFCFusXntmSPKT9.LWH6JgVJILDVSa", 1, "........", "Huong" }
+                    { 1, new DateTime(2000, 2, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dao", 0, true, new DateTime(2022, 4, 5, 8, 14, 33, 700, DateTimeKind.Local).AddTicks(4116), "Quy Vuong", "Ha Noi", "$2a$11$TcTBPgRfsxbOnLlMSpBIvufb1LU9fn31NiHEC6cJe6jp77xYoleay", 0, "AD1", "Admin" },
+                    { 2, new DateTime(1999, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bui", 0, true, new DateTime(2022, 4, 5, 8, 14, 33, 870, DateTimeKind.Local).AddTicks(6839), "Chi Huong", "Bac Giang", "$2a$11$5sGofnayV8S.haZ69VMwKexwA7wcbOFZ9JaSrN1QcYTD1UzoDy2Ra", 1, "US2", "Staff" },
+                    { 3, new DateTime(2001, 3, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bui", 2, true, new DateTime(2022, 4, 5, 8, 14, 34, 54, DateTimeKind.Local).AddTicks(3791), "Chi Huong", "Cao Bang", "$2a$11$Vh8sdbkegu4PoNLWtOZmDeJ7MlPKP1oNcqIY14JkG7fkClAYV6LMS", 1, "........", "Huong" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Asset",
                 columns: new[] { "AssetId", "AssetCode", "AssetName", "AssetState", "CategoryId", "CategoryName", "InstalledDate", "Location", "Specification" },
-                values: new object[] { 1, "LA1", "HP Zenbook8", 0, 1, "Laptop", new DateTime(2022, 4, 3, 23, 37, 14, 562, DateTimeKind.Local).AddTicks(2232), "sample location", "this is sample data" });
+                values: new object[] { 1, "LA1", "HP Zenbook8", 0, 1, "Laptop", new DateTime(2022, 4, 5, 8, 14, 33, 529, DateTimeKind.Local).AddTicks(810), "sample location", "this is sample data" });
 
             migrationBuilder.InsertData(
                 table: "Asset",
                 columns: new[] { "AssetId", "AssetCode", "AssetName", "AssetState", "CategoryId", "CategoryName", "InstalledDate", "Location", "Specification" },
-                values: new object[] { 2, "MO1", "Dell UltralSharp", 0, 2, "Monitor", new DateTime(2022, 4, 3, 23, 37, 14, 562, DateTimeKind.Local).AddTicks(2264), "sample location", "this is sample data" });
+                values: new object[] { 2, "MO1", "Dell UltralSharp", 0, 2, "Monitor", new DateTime(2022, 4, 5, 8, 14, 33, 529, DateTimeKind.Local).AddTicks(825), "sample location", "this is sample data" });
 
             migrationBuilder.InsertData(
                 table: "Asset",
                 columns: new[] { "AssetId", "AssetCode", "AssetName", "AssetState", "CategoryId", "CategoryName", "InstalledDate", "Location", "Specification" },
-                values: new object[] { 3, "PC1", "HP PC", 0, 3, "Personal Computer", new DateTime(2022, 4, 3, 23, 37, 14, 562, DateTimeKind.Local).AddTicks(2265), "sample location", "this is sample data" });
+                values: new object[] { 3, "PC1", "HP PC", 0, 3, "Personal Computer", new DateTime(2022, 4, 5, 8, 14, 33, 529, DateTimeKind.Local).AddTicks(826), "sample location", "this is sample data" });
 
             migrationBuilder.InsertData(
                 table: "Assignment",
                 columns: new[] { "AssignmentId", "AssetId", "AssignedByUserId", "AssignedDate", "AssignedToUserId", "Note" },
-                values: new object[] { 1, 2, 1, new DateTime(2022, 4, 3, 23, 37, 15, 143, DateTimeKind.Local).AddTicks(717), 2, "this is sample data" });
+                values: new object[] { 1, 2, 1, new DateTime(2022, 4, 5, 8, 14, 34, 54, DateTimeKind.Local).AddTicks(4206), 2, "this is sample data" });
 
             migrationBuilder.InsertData(
                 table: "ReturningRequest",

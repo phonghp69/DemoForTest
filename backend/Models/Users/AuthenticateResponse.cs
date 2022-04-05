@@ -1,19 +1,33 @@
 using backend.Entities;
+using backend.Enums;
 
 namespace backend.Models.Users
 {
     public class AuthenticateResponse
     {
-        public string? UserName { get; set; }
-        public string Role { get; set; }
+        public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
+        public Role Role { get; set; }
         public string Token { get; set; }
-        public string IsFistLogin {get;set;}
+        public bool IsFistLogin { get; set; }
+        public string? StaffCode{get;set;}
+        public DateTime JoindedDate { get; set; }
+        public DateTime DateOfBirth{get;set;}
         public AuthenticateResponse(User user, string token)
         {
+            UserId = user.UserId;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
             UserName = user.UserName;
-            Role = user.Role.ToString();
+            Role = user.Role;
             Token = token;
-            IsFistLogin = user.IsFirstLogin.ToString();
+            IsFistLogin = user.IsFirstLogin;
+            StaffCode = user.StaffCode;
+            JoindedDate = user.JoindedDate;
+            DateOfBirth = user.DateOfBirth;
+
         }
     }
 }
